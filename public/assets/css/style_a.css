@@ -1,0 +1,1363 @@
+body {
+    font-family: "sans" !important;
+    direction: ltr;
+    color: #4b5d73 !important;
+    background: #f3f6fd;
+}
+
+.top_header {
+    background: #339967;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.top_right {
+    color: white;
+    margin-top: 14px;
+    text-align: right;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.top_left {
+    color: white;
+    direction: rtl;
+    float: left;
+    text-align: left;
+}
+
+.top_left img {
+    width: 45px;
+    border: 2px solid white;
+    border-radius: 50px;
+}
+
+.top_leftt {
+    color: white;
+    direction: rtl;
+    float: left;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.top_leftt img {
+    width: 20px;
+}
+
+* {
+    box-sizing: border-box
+}
+
+.mySlides {
+    display: none
+}
+
+img {
+    vertical-align: middle;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1170px;
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.mySlides::before {
+    background-image: linear-gradient(#f000, #ff00, #ff00, #171717);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.mySlides img {
+    border-radius: 15px;
+    height: 670px;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 8px 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    background: #7a77775e;
+    transition: background-color 0.6s ease;
+}
+
+.text_q {
+    background-image: url("/assets/img/v1.png");
+    background-size: cover;
+    margin: 5px;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    text-align: right;
+    padding-right: 44%;
+    font-size: 14px;
+}
+
+.text_w {
+    background-image: url("/assets/img/v2.png");
+    background-size: cover;
+    margin: 5px;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    text-align: right;
+    padding-right: 44%;
+    font-size: 14px;
+}
+
+.text_r {
+    background-image: url("/assets/img/v3.png");
+    background-size: cover;
+    margin: 5px;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    text-align: right;
+    padding-right: 44%;
+    font-size: 14px;
+}
+
+.text_e {
+    background-image: url("/assets/img/v4.png");
+    background-size: cover;
+    margin: 5px;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    text-align: right;
+    padding-right: 44%;
+    font-size: 14px;
+}
+
+.footer {
+    display: none;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+.col-sm {
+    width: 25%;
+    float: right;
+}
+
+.new_q {
+    width: 25%;
+    float: right;
+    text-align: center;
+    padding-right: 0;
+    margin-bottom: 3%;
+}
+
+.new_img {
+    width: 60%;
+    border-radius: 10px;
+}
+
+.new_a .container {
+    background: white;
+    padding-top: 3%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.text_a {
+    text-align: right;
+    margin-top: 8%;
+}
+
+.new_q div {
+    direction: rtl;
+    font-size: 12px;
+    background: #4cb978;
+    width: 44%;
+    margin-left: 26%;
+    margin-top: -8%;
+    z-index: 11;
+    position: absolute;
+    padding: 5px;
+    color: white;
+    border-radius: 15px;
+}
+
+.new_a .container::before {
+    content: '';
+    position: relative;
+    left: 46%;
+    top: 0px;
+    height: 10px;
+    width: 8%;
+    background: #f3f6fd;
+    border-radius: 50px;
+}
+
+#profile_re {
+    height: 125px;
+    background: white;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    width: 55%;
+    margin-left: 46%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.new_e {
+    float: right;
+    width: 75%;
+    padding-left: 0;
+}
+
+/* Fading animation */
+.fade {
+    opacity: 1;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+.top_profile {
+    background-image: linear-gradient(to right, #349a68, #20d35e);
+}
+
+.profile_right {
+    width: 50%;
+    float: right;
+    text-align: right;
+}
+
+.profile_left {
+    width: 50%;
+    float: right;
+}
+
+.profile_right img {
+    background: #d8d6d9;
+    width: 26%;
+    border: 4px solid #c2ee37;
+    border-radius: 50%;
+    padding: 10;
+    margin-top: 5%;
+    margin-right: 0%;
+    margin-bottom: 20px;
+}
+
+.profile_right div {
+    padding-bottom: 10px;
+    color: white;
+    font-size: 14px;
+}
+
+.profile_w {
+    width: 25%;
+    font-size: 14px;
+    color: white;
+    background: #60b989;
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 5%;
+}
+
+.profile_r {
+    direction: rtl;
+    float: left;
+    margin-top: 16%;
+    color: #acef6e;
+    font-size: 14px;
+}
+
+.profile_q {
+    width: 25%;
+    font-size: 14px;
+    color: white;
+    background: #60b989;
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 22%;
+}
+
+.text_pro {
+    background-image: url("/assets/img/back.png");
+    background-size: cover;
+    margin: 5px;
+    border-radius: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    text-align: center;
+    padding-right: 0;
+    font-size: 14px;
+}
+
+#profile_box {
+    margin-top: -15%;
+    margin-bottom: 6%;
+}
+
+.text_pro i {
+    font-size: 14px !important;
+}
+
+.col-sm-4 {
+    float: right;
+}
+
+.boxpro {
+    background: white;
+    margin-bottom: 5%;
+    width: 93%;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 8px;
+}
+
+.boxpro_q {
+    text-align: right;
+    font-size: 14px;
+    color: #509076;
+    font-weight: bold;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10000000 !important; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+/* Modal Content */
+.modal-content {
+    position: fixed;
+    bottom: 0;
+    background-color: #fefefe;
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
+
+/* The Close Button */
+.close {
+    color: #b2b2b1;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: white;
+    color: white;
+    border: none;
+}
+
+.modal-form {
+    text-align: right;
+}
+
+.modal-form label {
+    font-size: 14px;
+}
+
+.group {
+    width: 100%;
+    margin-bottom: 2.5em;
+    position: relative;
+    margin-bottom: 35px;
+    margin: 10px 0;
+}
+
+.group input {
+    background-color: transparent;
+    width: 100%;
+    min-height: 45px;
+    font-size: 14px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    text-align: right;
+    border: none;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #aaa;
+}
+
+.group .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    right: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.group .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.group .bar::before {
+    right: 50%;
+}
+
+.group .bar::before, .bar::after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    position: absolute;
+    background: #f44336;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.group label {
+    color: #aaa;
+    font-size: 15px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    right: 5px;
+    top: -7px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.modal-body {
+    padding: 2px 16px 20px 16px;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #fff;
+    color: white;
+}
+
+.modal-img {
+    background: #d8d6d9;
+    width: 8%;
+    border: 4px solid #b2b2b1;
+    border-radius: 50px;
+    padding: 10;
+    margin-left: 46%;
+    margin-top: -4%;
+}
+
+.reserve_ul {
+    background: white;
+    padding: 0;
+    margin-top: 5%;
+}
+
+.reserve_ul li {
+    list-style-type: none;
+    padding: 15px;
+    border-bottom: 1px solid #c8c8c8;
+    text-align: right;
+    direction: rtl;
+    color: black;
+    font-size: 14px;
+}
+
+.new_p .container .row {
+    background: white;
+    border-radius: 20px;
+    margin-top: 2%;
+}
+
+.tab {
+    overflow: hidden;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: right;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: white;
+    width: 50%;
+}
+
+.tabcontent-text {
+    text-align: right;
+    margin-top: 5%;
+    color: #458fc4;
+    font-size: 14px;
+}
+
+.tabcontent-t {
+    color: #889294;
+    font-size: 14px;
+    text-align: right;
+    margin-top: 10px;
+}
+
+
+#reserve {
+    width: 100%;
+}
+
+#registration {
+    width: 100%;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    border-bottom: 3px solid white;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    border-bottom: 3px solid white;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+    float: right;
+}
+
+.salon_w {
+    text-align: right;
+    margin-top: 1%;
+}
+
+.salon_t {
+    color: white;
+    font-size: 14px;
+    direction: rtl;
+    float: right;
+}
+
+.salon_btn {
+    color: black;
+    background: #e9edee;
+    text-align: center;
+    padding-right: 10px;
+    border-radius: 20px;
+    margin-right: 2%;
+    padding-left: 10px;
+    font-size: 14px;
+    float: right;
+}
+
+.col-sm-1 {
+    width: 8.33333333%;
+    float: right;
+}
+
+.col-sm-11 {
+    width: 91.66666667%;
+    float: right;
+}
+
+#salon_det {
+    background: white;
+    margin-top: -3%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.col-lg-4 {
+    float: right;
+    width: 33%;
+}
+
+.salon_text {
+    text-align: right;
+    color: black;
+    font-size: 14px;
+}
+
+.salon_text1 {
+    text-align: right;
+    padding-bottom: 3px;
+    font-size: 14px;
+}
+
+.salon_tt {
+    direction: rtl;
+    background: #f5f5f5;
+    text-align: center;
+    padding-right: 10px;
+    border-radius: 20px;
+    padding-left: 10px;
+    font-size: 14px;
+    float: right;
+}
+
+.salon_img {
+    border-radius: 10px;
+}
+
+.salon-r {
+    text-align: right;
+    direction: rtl;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.col-sm-3 {
+    width: 25%;
+    float: right;
+}
+
+.salon-p {
+    text-align: center;
+    direction: rtl;
+    margin-top: 7%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.salon-r span {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.col {
+    width: 14%;
+    float: right;
+}
+
+.col span {
+    color: #7b7f7e;
+    font-size: 12px;
+}
+
+.mySlide-p {
+    color: #4e779a;
+    font-weight: bold;
+}
+
+.mySlide-a {
+    color: #4e779a;
+}
+
+.mySlide-n {
+    background: #f6f6f8;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 10px;
+    width: 45px;
+    color: #d0d0d4 !important;
+    display: inline-block;
+
+}
+
+.mySlide-null {
+    margin-bottom: 5px;
+}
+
+.mySlide-c {
+    background: #f7f7ad;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 10px;
+    width: 45px;
+    display: inline-block;
+}
+
+.slideshow-container {
+    position: relative;
+    background: #fff;
+}
+
+/* Slides */
+.mySlide {
+    display: none;
+    padding: 80px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+/* Next & previous buttons */
+#prev, #next {
+    cursor: pointer;
+    position: absolute;
+    top: 4%;
+    width: auto;
+    margin-top: -30px;
+    padding: 16px;
+    color: #888;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    position: absolute;
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+#prev:hover, #next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+/* The dot/bullet/indicator container */
+.dot-container {
+    text-align: center;
+    padding: 20px;
+    background: #ddd;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+/* Add a background color to the active dot/circle */
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* Add an italic font style to all quotes */
+q {
+    font-style: italic;
+}
+
+/* Add a blue color to the author */
+.author {
+    color: cornflowerblue;
+}
+
+.mySlide-m {
+    background: #fff;
+    border: 1px solid #ababab;
+    border-bottom: 4px solid #0627ee;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 10px;
+    width: 45px;
+    display: inline-block;
+}
+
+.mySlide-w {
+    background: #fff;
+    border: 1px solid #ababab;
+    border-bottom: 4px solid #f74881;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 10px;
+    width: 45px;
+    display: inline-block;
+}
+
+.salon-res {
+    background: #336799;
+    padding-bottom: 5%;
+}
+
+#salon-col {
+    width: 16.66666667%;
+    float: right;
+    background: #4776a2;
+    margin-top: 3%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#salon-col p {
+    text-align: center;
+    color: #a8c3d8;
+    padding-top: 15px;
+}
+
+#salon-sm-10 {
+    width: 83.33333333%;
+    float: right;
+    margin-top: 4%;
+    color: white;
+}
+
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {
+        bottom: -300px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+@keyframes slideIn {
+    from {
+        bottom: -300px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+    .prev, .next, .text {
+        font-size: 11px
+    }
+}
+
+
+@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+    .mySlide {
+        display: none;
+        padding: 15px;
+        padding-top: 15px;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .col span {
+        color: #7b7f7e;
+        font-size: 10px;
+    }
+
+    .salon-r span {
+        font-size: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .salon-p {
+        text-align: center;
+        direction: rtl;
+        margin-top: 2%;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .salon_t {
+        color: white;
+        font-size: 12px;
+        direction: rtl;
+    }
+
+    .salon_btn {
+        color: black;
+        background: #e9edee;
+        text-align: center;
+        padding-right: 10px;
+        border-radius: 20px;
+        margin-right: 2%;
+        padding-left: 10px;
+        font-size: 12px;
+        float: right;
+    }
+
+    .profile_right div {
+        padding-bottom: 10px;
+        color: white;
+        font-size: 12px;
+    }
+
+    .top_right {
+        color: white;
+        width: 50%;
+        float: right;
+    }
+
+    .top_left {
+        color: white;
+        direction: rtl;
+        float: left;
+        text-align: left;
+        width: 50%;
+        font-size: 12px;
+    }
+
+    .top_leftt {
+        color: white;
+        direction: rtl;
+        float: left;
+        text-align: left;
+        width: 50%;
+        font-size: 12px;
+        margin-top: 14px;
+        margin-bottom: 10px;
+    }
+
+    .text_q {
+        background-image: url("/assets/img/v1.png");
+        background-size: cover;
+        margin: 5px;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-radius: 10px;
+        text-align: right;
+        padding-right: 38%;
+        font-size: 12px;
+    }
+
+    .text_w {
+        background-image: url("/assets/img/v2.png");
+        background-size: cover;
+        margin: 5px;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 10px;
+        text-align: right;
+        padding-right: 38%;
+        font-size: 12px;
+    }
+
+    .text_r {
+        background-image: url("/assets/img/v3.png");
+        background-size: cover;
+        margin: 5px;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 10px;
+        text-align: right;
+        padding-right: 38%;
+        font-size: 12px;
+    }
+
+    .text_e {
+        background-image: url("/assets/img/v4.png");
+        background-size: cover;
+        margin: 5px;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-radius: 10px;
+        text-align: right;
+        padding-right: 38%;
+        font-size: 12px;
+    }
+
+    .col-sm {
+        width: 50%;
+        float: right;
+    }
+
+    .slideshow-container {
+        max-width: 1170px;
+        position: relative;
+        margin: auto;
+        margin: 5px;
+        margin-top: 10px;
+    }
+
+    .footer {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 5000 !important;
+        background-color: #fff;
+        color: #878787;
+    }
+
+    .footer {
+        display: block !important;
+        border-top: 1px solid #d2d2d2;
+    }
+
+    .footer_b {
+        width: 19%;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+        text-align: center;
+        padding: 0;
+        color: #0d86cd;
+        float: right;
+
+    }
+
+    .new_a {
+        background: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        margin-right: 5px;
+        margin-left: 5px;
+        padding-bottom: 17%;
+    }
+
+    .new_img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .new_q div {
+        direction: rtl;
+        background: #4cb978;
+        width: 88%;
+        margin-top: -13%;
+        z-index: 11;
+        position: absolute;
+        padding: 5px;
+        color: white;
+        border-radius: 15px;
+        font-size: 10px;
+        margin-left: 4%;
+    }
+
+    .new_q {
+        width: 25%;
+        float: right;
+        text-align: center;
+        padding-right: 0;
+        margin-bottom: 3%;
+        padding: 0;
+    }
+
+    .text_a {
+        text-align: right;
+        margin-top: 12%;
+        font-size: 12px;
+    }
+
+    .mySlides img {
+        border-radius: 15px;
+        height: 190px;
+    }
+
+    .new_a .container::before {
+        content: '';
+        position: relative;
+        left: 44%;
+        top: 0px;
+        height: 6px;
+        width: 12%;
+        background: #f3f6fd;
+        border-radius: 50px;
+    }
+
+    .profile_right img {
+        background: #d8d6d9;
+        width: 55%;
+        border: 4px solid #c2ee37;
+        border-radius: 50px;
+        padding: 10;
+        margin-top: 15%;
+        margin-right: 10%;
+    }
+
+    .top_right {
+        color: white;
+        margin-top: 14px;
+        text-align: right;
+        font-size: 12px;
+    }
+
+    .profile_w {
+        width: 80%;
+        font-size: 12px;
+        color: white;
+        background: #60b989;
+        text-align: center;
+        padding: 10px;
+        border-radius: 20px;
+        margin-top: 5%;
+    }
+
+    .profile_r {
+        direction: rtl;
+        float: left;
+        margin-top: 30%;
+        color: #acef6e;
+        font-size: 12px;
+    }
+
+    .profile_q {
+        width: 80%;
+        font-size: 12px;
+        color: white;
+        background: #60b989;
+        text-align: center;
+        padding: 10px;
+        border-radius: 20px;
+        margin-top: 54%;
+    }
+
+    #profile_re {
+        height: 66px;
+        background: white;
+        border-top-left-radius: 100px;
+        border-bottom-left-radius: 100px;
+        width: 85%;
+        margin-left: 19%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .text_pro {
+        background-image: url("/assets/img/back.png");
+        background-size: contain;
+        margin: 5px;
+        border-radius: 50px;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding-top: 35px;
+        padding-bottom: 35px;
+        text-align: center;
+        padding-right: 0;
+        font-size: 12px;
+    }
+
+    .col-sm-4 {
+        padding-right: 5px;
+        padding-left: 0px;
+        width: 33.33333333%;
+        float: right;
+    }
+
+    #profile_box {
+        margin-top: -29%;
+        margin-bottom: 0%;
+    }
+
+    .boxpro_q {
+        text-align: right;
+        font-size: 12px;
+        color: #509076;
+        font-weight: bold;
+    }
+
+    .modal-img {
+        background: #d8d6d9;
+        width: 20%;
+        border: 4px solid #b2b2b1;
+        border-radius: 50px;
+        padding: 10;
+        margin-left: 40%;
+        margin-top: -8%;
+    }
+
+    .modal-form label {
+        font-size: 12px;
+    }
+
+    .reserve_ul li {
+        list-style-type: none;
+        padding: 15px;
+        border-bottom: 1px solid #c8c8c8;
+        text-align: right;
+        direction: rtl;
+        color: black;
+        font-size: 12px;
+    }
+
+    .tabcontent-text {
+        text-align: right;
+        margin-top: 5%;
+        color: #458fc4;
+        font-size: 12px;
+    }
+
+    .tabcontent-t {
+        color: #889294;
+        font-size: 12px;
+        text-align: right;
+        margin-top: 10px;
+    }
+
+    .salon_text {
+        text-align: right;
+        color: black;
+        font-size: 12px;
+    }
+
+    .salon_text1 {
+        text-align: right;
+        font-size: 10px;
+        padding-bottom: 3px;
+    }
+
+    .salon_tt {
+        direction: rtl;
+        background: #f5f5f5;
+        text-align: center;
+        padding-right: 10px;
+        border-radius: 20px;
+        padding-left: 10px;
+        font-size: 10px;
+        float: right;
+    }
+
+    .salon_img {
+        width: 115%;
+        border-radius: 10px;
+    }
+
+    .salon-res {
+        background: #336799;
+        position: fixed !important;
+        bottom: 40px;
+        width: 100%;
+    }
+}
