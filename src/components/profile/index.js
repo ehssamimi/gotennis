@@ -1,21 +1,57 @@
 import Top from "./top";
 import Footer from "./footer";
-import Modal from "./modal";
+import {Modal} from "./modal";
 import {useState, useEffect} from "react";
 import {getUser} from "../../api";
 import {Link} from "react-router-dom";
+import MainDiv from "../Common/MainDiv/MainDiv";
 
 const Index = () => {
 
-    let [user, setUser] = useState({});
+    let [user, setUser] = useState({
+        birthday: null,
+        gender: "1",
+        mobile: "",
+        name: "",
+        profile_pic: null,
+        profile_preview: "/assets/img/avatar-380-456332.png",
+        username: "",
+        push_id: '4',
+        device_id: '2g',
+        imei: '1w',
+        mac_address:'3r'
+
+    });
+
 
     useEffect(() => {
         getUser().then(response => {
-            setUser(response.data.data);
+            console.log(response.data.data)
+            // console.log(response.data.data.birthday.splice("-"))
+            let ListUser=response.data.data;
+            console.log(response.data.data.birthday)
+            console.log(  response.data.data.birthday.split("-")[0])
+            let userirthday = {
+                year: Number(response.data.data.birthday.split("-")[2]>1900?1363:response.data.data.birthday.split("-")[2]),
+                month: Number(response.data.data.birthday.split("-")[1]),
+                day: Number(response.data.data.birthday.split("-")[0]),
+            }
+            console.log(userirthday)
+
+
+            ListUser ['profile_preview']= response.data.data.profile_pic!==null?response.data.data.profile_pic: "/assets/img/avatar-380-456332.png"
+            ListUser ['profile_pic']= null
+            ListUser ['birthday']=  userirthday
+
+            // ListUser ['birthday']= response.data.data.birthday!==null? {day: response.data.data.birthday.splice("-")[0], month: response.data.data.birthday.splice("-")[1], year: response.data.data.birthday.splice("-")[2]}:null
+                setUser(ListUser);
+            console.log(ListUser)
         }).catch(error => error);
     }, []);
 
+
     return (
+        <MainDiv>
         <>
             <Top user={user}/>
 
@@ -96,11 +132,12 @@ const Index = () => {
                 </div>
             </div>
 
-            <Modal user={user}/>
+            <Modal user={user} changeUser={setUser}/>
 
             <Footer/>
 
         </>
+        </MainDiv>
     );
 }
 export default Index;

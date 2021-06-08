@@ -4,8 +4,9 @@ import ListResponseHandler from "../../utils/AxiosResponse/Success/ListResponseH
 import moment from 'jalali-moment';
 import {Link} from "react-router-dom";
 import {IMAGE_BASE_URL} from "../../utils/Config";
+import MainDiv from "../Common/MainDiv/MainDiv";
 
-const Index = ({className}) => {
+const Index = ({className,home}) => {
 
     const [data, setData] = useState({
         data: [],
@@ -20,34 +21,78 @@ const Index = ({className}) => {
 
 
     return (
-        <div className={className ? className : 'new_p'}>
-            <div className="container">
-                {
-                    !data.loading ?
-                        data.notFound ? <p className='text-center text-danger'>اطلاعاتی یافت نشد</p> :
-                            data.data.map(item =>
-                                <Link to={`/news/${item.id}`} key={item.id}>
-                                    <div className="row" style={{marginTop:'10px'}}>
-                                        <div className="col-lg-3 new_q">
-                                            <img className="new_img" src={`${IMAGE_BASE_URL}${item.image_id}`}
-                                                 alt="" width='91' height='79'/>
-                                            <div>
-                                                {moment(item.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-9 new_e">
-                                            <div className="text_a">
-                                                {item.title}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            )
+        <>
 
-                        : <p className='text-center text-warning'>در حال بارگزاری</p>
-                }
+        {home?
+
+        <>
+
+            <div className={className ? className : 'new_p'}>
+                <div className="container">
+                    {
+                        !data.loading ?
+                            data.notFound ? <p className='text-center text-danger'>اطلاعاتی یافت نشد</p> :
+                                data.data.map(item =>
+                                    <Link to={`/news/${item.id}`} key={item.id}>
+                                        <div className="row" style={{marginTop:'10px'}}>
+                                            <div className="col-lg-3 new_q">
+                                                <img className="new_img" src={`${IMAGE_BASE_URL}${item.image_id}`}
+                                                     alt="" width='91' height='79'/>
+                                                <div>
+                                                    {moment(item.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-9 new_e">
+                                                <div className="text_a">
+                                                    {item.title}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                )
+
+                            : <p className='text-center text-warning'>در حال بارگزاری</p>
+                    }
+                </div>
             </div>
-        </div>
+
+        </>
+                :
+                <MainDiv>
+                    <div className={className ? className : 'new_p'}>
+                        <div className="container">
+                            {
+                                !data.loading ?
+                                    data.notFound ? <p className='text-center text-danger'>اطلاعاتی یافت نشد</p> :
+                                        data.data.map(item =>
+                                            <Link to={`/news/${item.id}`} key={item.id}>
+                                                <div className="row" style={{marginTop:'10px'}}>
+                                                    <div className="col-lg-3 new_q">
+                                                        <img className="new_img" src={`${IMAGE_BASE_URL}${item.image_id}`}
+                                                             alt="" width='91' height='79'/>
+                                                        <div>
+                                                            {moment(item.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-lg-9 new_e">
+                                                        <div className="text_a">
+                                                            {item.title}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        )
+
+                                    : <p className='text-center text-warning'>در حال بارگزاری</p>
+                            }
+                        </div>
+                    </div>
+                </MainDiv>
+
+        }
+
+     </>
+
     );
 }
 

@@ -1,6 +1,6 @@
 import moment from "jalali-moment";
-import NumberSeparator from "../../utils/NumberSeparator";
-import {Link} from "react-router-dom";
+ import {Link} from "react-router-dom";
+import {NumberSeparatorFunction} from "../../utils/HelperFunction";
 
 const Reserve = ({data}) => {
 
@@ -56,6 +56,13 @@ const Reserve = ({data}) => {
         return {month_text, day_text};
 
     }
+    const SumPrice=(data)=>{
+        let sum=0;
+        data.map(item=>{
+            sum=sum+ parseInt(item.price)
+        })
+        return sum
+    }
 
 
     return (
@@ -64,24 +71,26 @@ const Reserve = ({data}) => {
                 <div className="row">
                     <div id="salon-col" className="col-sm-2">
                         <p>
-                            <span style={{color: "#70cf8f"}}>{dateHandler()['day_text']} < /span>
+                            <span style={{color: "#70cf8f"}}>{dateHandler()['day_text']} </span>
                             <br/>
-                            {dateHandler()['month_text']}
+                                {dateHandler()['month_text']}
                         </p>
                     </div>
                     <div id="salon-sm-10" className="col-sm-10">
-                        <p style={{textAlign: "right"}}>
-                            تعداد کل روزهای شما -----------------------
-                            <span style={{color: "#94d64e"}}>
-                                {data.count} سانس
-                                </span>
+
+                        <p className='container-fill '>
+                            <div className='filler-fill'></div>
+                            <span className='label-fill' style={{color: "#94d64e"}} dir='rtl'> { + data.length + ' ' + 'سانس'} </span>
+                            <span className='text-fill'>تعداد کل روزهای شما</span>
                         </p>
-                        <p style={{textAlign: "right"}}>
-                            مبلغ فاکتور شما -----------------------
-                            <span style={{color: "#94d64e"}}>
-                                <NumberSeparator number={data.price}/> تومان
-                                </span>
-                        </p>
+
+
+                        <div className='container-fill  '>
+                            <div className='filler-fill'></div>
+                            <span className='label-fill' style={{color: "#94d64e"}} dir='rtl'>   { NumberSeparatorFunction(SumPrice(data))+' '+'تومان'  } </span>
+                            <span className='text-fill'>مبلغ فاکتور شما</span>
+                        </div>
+
 
                     </div>
 
@@ -94,7 +103,7 @@ const Reserve = ({data}) => {
                               paddingBottom: "10px",
                               paddingRight: "50px",
                               paddingLeft: "50px",
-                              background: "#e0e0e0",
+                              background: data.length>0?"#94d64e":"#e0e0e0",
                               borderRadius: "10px",
                               display: "block"
                           }}>

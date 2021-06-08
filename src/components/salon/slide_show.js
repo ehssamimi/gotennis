@@ -1,11 +1,20 @@
 import {useCallback, useEffect, useState} from "react";
 import {getSans} from "../../api";
+import {gotennisNotif} from "../../utils/Notification";
+import {getIndexIfObjWithAttr} from "../../utils/HelperFunction";
+import IsLoader from "../Common/IsLoader/IsLoader";
+import IsLoader2 from "../Common/IsLoader/IsLoader2";
+// import {hours} from "jalali-react-datepicker/dist/utils/timePicker";
 
-const SlideShow = ({court_id, reserveData}) => {
-
+const SlideShow = ({court_id,updateReservedList,charts}) => {
+    const DaysArray=[0,1,2,3,4,5,6]
     let [slideIndex, setSlideIndex] = useState(1);
+    let [isLoading, setisLoading] = useState(true);
+    let [reservedata, setReservedata] = useState( []);
 
-    let [sans, setSans] = useState([]);
+
+    let [sansList, setSans] = useState([]);
+
 
     let [sansCount, setSansCount] = useState(0);
 
@@ -116,140 +125,118 @@ const SlideShow = ({court_id, reserveData}) => {
 
     }
 
-    const handleClick = row => {
-        reserveData(row);
+
+    const handleClick = (sans,key,date,key4) => {
+        // document.getElementById('myModal').style.display = 'block';
+
+        let type=["expired","occupied","reserved"]
+        if ( !type.includes(sans.status)){
+            if(sans.gender === 1){
+                gotennisNotif(3)
+            }else  if(sans.gender === 0){
+
+
+
+                let indexItem= getIndexIfObjWithAttr(reservedata,'sans_id',sans.sans_id)
+                if (sansList[key][date][key4].status==='selected'){
+                     sansList[key][date][key4].status= "available"
+                    reservedata.splice(indexItem,1)
+
+                }else {
+                    sansList[key][date][key4].status='selected'
+                    reservedata.push(sans)
+                }
+
+
+                setSans(sansList);
+                setReservedata(reservedata)
+                updateReservedList(reservedata)
+
+
+            }
+
+
+        }
+
+
+
     }
 
 
+
+
     useEffect(() => {
-        getSans(court_id).then(response => {
-            setSans(response.data.data.weeks);
-            showSlides(slideIndex);
-        })
-            .catch(error => error);
+        setisLoading(true)
+        if (court_id!==null){
+            getSans(court_id).then(response => {
+                setisLoading(false)
+                console.log(response.data.data)
+                setSans(response.data.data.weeks);
+
+                showSlides(slideIndex);
+
+            })
+                .catch(error => error);
+        }
+
     }, [court_id, showSlides, slideIndex]);
 
 
+
+// console.log('***************sans**********')
+// console.log(sans)
     return (
-        <div className="slideshow-container" style={{borderRadius: '20px 20px 0 0'}}>
+        <div className="slideshow-container" style={{borderRadius: '20px 20px 0 0',marginBottom:'144px'}}>
 
             {
-                sans.length > 0 && sans.map((item, key) => {
+                sansList.length > 0 && sansList.map((item, key) => {
                     return Object.keys(item).map((date, key2) => {
                             return <div className="mySlide" key={key + key2}>
                                 <p className="mySlide-p">{yearHandler(date)} {monthHandler(date)}</p>
+
                                 <div className="row">
-                                    <div className="col">
-                <span>
-                    {headerDateHandler(Object.keys(item)[0])}
-                </span>
-                                        <p className="mySlide-a">
-                                            شنبه
-                                        </p>
-                                        {Object.values(item)[0].map((row, key4) => <p className="mySlide-null"
-                                                                                      key={key4}
-                                                                                      onClick={() => handleClick(row)}>
-                    <span className={`${row.gender == 0 ? "mySlide-w" : "mySlide-n"}`}>
 
-                        {timeHandler(row)}
-                    </span>
-                                        </p>)}
-                                    </div>
-                                    <div className="col">
-                <span>
-                    {headerDateHandler(Object.keys(item)[1])}
-                </span>
-                                        <p className="mySlide-a" dir="rtl">
-                                            ۱شنبه
-                                        </p>
-                                        {Object.values(item)[1].map((row, key4) => <p className="mySlide-null"
-                                                                                      key={key4}
-                                                                                      onClick={() => handleClick(row)}>
-                    <span className={`${row.gender == 0 ? "mySlide-w" : "mySlide-n"}`}>
+                                    {
+                                        DaysArray.map((day,index)=>
 
-                        {timeHandler(row)}
-                    </span>
-                                        </p>)}
-                                    </div>
-                                    <div className="col">
-                <span>
-                    {headerDateHandler(Object.keys(item)[2])}
-                </span>
-                                        <p className="mySlide-a">
-                                            ۲شنبه
-                                        </p>
-                                        {Object.values(item)[2].map((row, key4) => <p className="mySlide-null" key={key4}
-                                                                                      onClick={() => handleClick(row)}>
-                    <span className={`${row.gender == 0 ? "mySlide-w" : "mySlide-n"}`}>
-
-                        {timeHandler(row)}
-                    </span>
-                                        </p>)}
-                                    </div>
-                                    <div className="col">
-                <span>
-                    {headerDateHandler(Object.keys(item)[3])}
-                </span>
-                                        <p className="mySlide-a">
-                                            ۳شنبه </p>
-                                        {Object.values(item)[3].map((row, key4) => <p className="mySlide-null" key={key4}
-                                                                                      onClick={() => handleClick(row)}>
-                    <span className={`${row.gender == 0 ? "mySlide-w" : "mySlide-n"}`}
-                    >
-
-                        {timeHandler(row)}
-                    </span>
-                                        </p>)}
-                                    </div>
-                                    <div className="col">
-                <span>
-                    {headerDateHandler(Object.keys(item)[4])}
-                </span>
-                                        <p className="mySlide-a">
-                                            ۴شنبه
-                                        </p>
-                                        {Object.values(item)[4].map((row, key4) => <p className="mySlide-null" key={key4}
-                                                                                      onClick={() => handleClick(row)}>
-                    <span className={`${row.gender == 0 ? "mySlide-w" : "mySlide-n"}`}
-                    >
-
-                        {timeHandler(row)}
-                    </span>
-                                        </p>)}
-                                    </div>
-                                    <div className="col">
-                <span>
-                    {headerDateHandler(Object.keys(item)[5])}
-                </span>
-                                        <p className="mySlide-a">
-                                            ۵شنبه
-                                        </p>
-                                        {Object.values(item)[5].map((row, key4) => <p className="mySlide-null" key={key4}
-                                                                                      onClick={() => handleClick(row)}>
-                    <span className={`${row.gender == 0 ? "mySlide-w" : "mySlide-n"}`}
-                    >
-
-                        {timeHandler(row)}
-                    </span>
-                                        </p>)}
-                                    </div>
-                                    <div className="col">
-                <span>
-                    {headerDateHandler(Object.keys(item)[6])}
-                </span>
-                                        <p className="mySlide-a">
-                                            جمعه
-                                        </p>
-                                        {Object.values(item)[6].map((row, key4) => <p className="mySlide-null" key={key4}
-                                                                                      onClick={() => handleClick(row)}>
-                    <span className={`${row.gender == 0 ? "mySlide-w" : "mySlide-n"}`}
-                    >
-
-                        {timeHandler(row)}
-                    </span>
-                                        </p>)}
-                                    </div>
+                                            <div className="col">
+                                                <span>{headerDateHandler(Object.keys(item)[index])}</span>
+                                                <p className="mySlide-a" dir='rtl'>{ index===0?"شنبه":index===6?"جمعه":`${index} شنبه  `} </p>
+                                            </div>
+                                        ) }
                                 </div>
+
+
+                                    <IsLoader2 isLoader={isLoading}>
+                                        <div className="row" style={{minHeight: '180px',height:"25vh",overflowY:"scroll"}}>
+
+                                            {
+                                                DaysArray.map((day,index)=>
+
+                                                    <div className="col">
+
+                                                        {Object.values(item)[index].map((row, key4) =>
+                                                            <p className="mySlide-null" key={key4} onClick={() => handleClick(row,key,Object.keys(item)[index],key4)}>
+                                                          <span className={[" mySlide-default ",`${
+                                                              row.status === "selected" ?"mySlide-s":
+                                                                  ( row.status === "expired" || row.status === "undefined") ?"mySlide-n":
+                                                                      row.status === "occupied" ?"mySlide-c":
+                                                                          row.status === "reserved" ?"mySlide-r":
+                                                                              row.gender === 1 ? "mySlide-w" : "mySlide-m"}`].join(" ")}>
+                                                                {timeHandler(row)}
+                                                          </span>
+
+                                                            </p>)}
+                                                    </div>
+
+                                                )
+                                            }
+
+                                        </div>
+                                    </IsLoader2>
+
+
+
                             </div>
 
                         }

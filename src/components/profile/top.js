@@ -1,3 +1,5 @@
+import React from "react";
+
 const Top = ({user}) => {
 
     const modal = () => {
@@ -9,9 +11,9 @@ const Top = ({user}) => {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6 profile_right">
-                        <img src={user.profile_pic} alt=''/>
-                        <div>{user.name != null && user.name}</div>
-                        <div>{user.mobile}</div>
+                        <img src={ user.profile_preview} alt='img'/>
+                        <div>{(user.name != null && user.name!=="")?user.name:"کاربر"}</div>
+                        <div>{(user.mobile != null && user.mobile!=="")?user.mobile:"شماره همراه"}</div>
                     </div>
                     <div className="col-lg-6 profile_left">
                         <div className="profile_w">

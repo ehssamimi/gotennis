@@ -3,6 +3,7 @@ import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import moment from "jalali-moment";
 import {IMAGE_BASE_URL} from "../../utils/Config";
+import MainDiv from "../Common/MainDiv/MainDiv";
 
 const Detail = () => {
 
@@ -19,7 +20,9 @@ const Detail = () => {
             .catch(error => error);
     }, [param]);
     return (
-        (data && data.id) ?
+        <MainDiv>
+            (data && data.id) ?
+
             <>
                 <div style={{
                     color: '#337ab7',
@@ -46,8 +49,11 @@ const Detail = () => {
                 </div>
             </>
             : <div>
-                <h4 className="text-danger text-center">خبر یافت نشد</h4>
-            </div>
+            <h4 className="text-danger text-center">خبر یافت نشد</h4>
+        </div>
+
+        </MainDiv>
+
     )
 }
 

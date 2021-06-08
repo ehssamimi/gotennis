@@ -1,8 +1,17 @@
 import {useState, useEffect} from 'react';
 import {getComplexes, getCourts} from "../../api";
 import {useParams} from "react-router-dom";
+import Swiper from 'react-id-swiper';
+import "swiper/css/swiper.css";
 
 const TopProfile = props => {
+    const params = {
+        initialSlide: 0,
+        spaceBetween: 8,
+        slidesPerView:3,
+        loop: false,
+        autoplay: false
+    };
 
     let [complex, setComplex] = useState({});
 
@@ -27,8 +36,11 @@ const TopProfile = props => {
         getCourts(param.id).then(response => {
 
             response = response.data.data.data;
+            console.log(response)
 
             setCourts(response);
+            props.getSans(response[0].id);
+
 
         }).catch(error => error);
 
@@ -62,16 +74,25 @@ const TopProfile = props => {
                             زمین:
                         </div>
                     </div>
-                    <div className="col-sm-11">
-                        {
-                            courts.map(court => <span className="salon_btn"
-                                                      style={{marginTop: '3px', cursor: 'pointer'}}
-                                                      key={court.id}
-                                                      onClick={(e) => parentDataHandler(e, court.id,)}
-                            >
+                    <div className="col-sm-11" style={{width: '91.66666667%'}}>
+                        {/*<Swiper {...params}  >*/}
+                            {
+                                courts.map(court => <span className="salon_btn"
+                                                          style={{marginTop: '3px', cursor: 'pointer'}}
+                                                          key={court.id}
+                                                          onClick={(e) => parentDataHandler(e, court.id,)}
+                                >
                                 {court.name}
                             </span>)
-                        }
+
+
+                             }
+                        {/*</Swiper>*/}
+
+
+
+
+
                     </div>
                 </div>
 

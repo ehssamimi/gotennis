@@ -5,6 +5,7 @@ import {getComplexes} from "../../api";
 import ListResponseHandler from "../../utils/AxiosResponse/Success/ListResponseHandler";
 import Classes from "./classes";
 import {IMAGE_BASE_URL} from "../../utils/Config";
+import MainDiv from "../Common/MainDiv/MainDiv";
 
 const Index = () => {
 
@@ -21,6 +22,7 @@ const Index = () => {
     }, []);
 
     return (
+        <MainDiv>
         <>
             <Header/>
 
@@ -51,6 +53,7 @@ const Index = () => {
                 <Classes/>
             </div>
         </>
+        </MainDiv>
     )
 }
 export default Index;

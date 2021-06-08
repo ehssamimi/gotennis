@@ -4,6 +4,8 @@ import Reserve from "./reserve";
 import {useState} from "react";
 import {getSans as getSansApi} from "../../api";
 import moment from "jalali-moment";
+  import {Modal} from "../profile/modal";
+import MainDiv from "../Common/MainDiv/MainDiv";
 
 const Index = () => {
 
@@ -11,35 +13,31 @@ const Index = () => {
 
     let [courtName, setCourtName] = useState(null);
 
-    let [courtId, setCourtId] = useState(1);
+    let [courtId, setCourtId] = useState(null);
 
-    let [reservedata, setReservedata] = useState({
-        price: 0,
-        count: 0
-    });
+    let [reservedata, setReservedata] = useState( []);
+    let [count, setcount] = useState(false);
 
 
-    const reserveData = sans => {
 
-        setReservedata({
-            price: parseInt(reservedata.price) + parseInt(sans.price),
-            count: reservedata.count + 1
-        });
-    }
 
 
     const getSans = id => {
-
+        setCourtId(id);
         getSansApi(id).then(response => {
+            console.log(response.data.data)
             setSans(response.data.data);
         }).catch(error => error);
 
-        setCourtId(id);
+
     }
 
     const getCourtName = name => setCourtName(name);
+    const updateReservedList = reserved =>{ setReservedata(reserved);setcount(!count)};
+
 
     return (
+        <MainDiv>
         <>
             <TopProfile getSans={getSans} getCourtName={getCourtName}/>
 
@@ -105,10 +103,14 @@ const Index = () => {
                 <p className="salon-p">رنگ صورتی مربوط به سانس بانوان و رنگ آبی مربوط به سانس آقایان می باشد.</p>
             </div>
 
-            <SlideShow court_id={courtId} reserveData={reserveData}/>
+            <SlideShow court_id={courtId}  updateReservedList={updateReservedList} charts={sans.weeks}/>
 
             <Reserve data={reservedata}/>
+            <Modal  />
+
+
         </>
+        </MainDiv>
     )
 }
 

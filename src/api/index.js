@@ -10,7 +10,10 @@ const getClass = id => Axios(`/class/${id}`);
 const getComplexes = () => Axios('/complexes');
 const getSans = (court_id, sport_id = 1) => Axios.post('/sans', {court_id, sport_id});
 const getCourts = complex_id => Axios(`/courts?complex_id=${complex_id}`);
-const updateUser = data => AuthAxios.post(`/user/profile`, data);
+// const updateUser = data => AuthAxios.post(`/user/profile`, data);
+const userLogin = data => Axios.post(`/user/login`, data);
+const verifyMobile = data => Axios.post(`/user/verify-mobile`, data);
+const updateUser = data => console.log(data);
 
 export {
     getNews,
@@ -22,5 +25,7 @@ export {
     getComplexes,
     getSans,
     getCourts,
-    updateUser
+    updateUser,
+    userLogin,
+    verifyMobile
 }

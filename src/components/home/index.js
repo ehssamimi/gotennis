@@ -3,6 +3,7 @@ import {getSlider} from "../../api";
 import ListResponseHandler from "../../utils/AxiosResponse/Success/ListResponseHandler";
 import News from "../news";
 import {Link} from "react-router-dom";
+import MainDiv from "../Common/MainDiv/MainDiv";
 
 const Index = () => {
 
@@ -65,61 +66,64 @@ const Index = () => {
 
     return (
         <>
+            <MainDiv>
+                <div className="slideshow-container">
+                    {
+                        !slider.loading ?
+                            slider.notFound ? <p className='text-center text-danger'>اطلاعاتی یافت نشد</p> :
+                                slider.data.map(item =>
+                                    <a href={item.link} key={item.id}>
+                                        <div className="mySlides fade" key={item.id}>
+                                            <img src={item.media_url} style={{width: '100%'}} alt={item.media_url}/>
+                                            <div className="text">{item.name}</div>
+                                        </div>
+                                    </a>
+                                )
+                            : <p className='text-center text-warning'>در حال بارگزاری</p>
+                    }
 
-            <div className="slideshow-container">
-                {
-                    !slider.loading ?
-                        slider.notFound ? <p className='text-center text-danger'>اطلاعاتی یافت نشد</p> :
-                            slider.data.map(item =>
-                                <a href={item.link} key={item.id}>
-                                    <div className="mySlides fade" key={item.id}>
-                                        <img src={item.media_url} style={{width: '100%'}} alt={item.media_url}/>
-                                        <div className="text">{item.name}</div>
-                                    </div>
-                                </a>
-                            )
-                        : <p className='text-center text-warning'>در حال بارگزاری</p>
-                }
+                    <a className="prev" onClick={() => plusSlides(-1)}>&#10094;</a>
+                    <a className="next" onClick={() => plusSlides(1)}>&#10095;</a>
 
-                <a className="prev" onClick={() => plusSlides(-1)}>&#10094;</a>
-                <a className="next" onClick={() => plusSlides(1)}>&#10095;</a>
+                </div>
 
-            </div>
+                <div style={{textAlign: "center", marginTop: "10px"}}>
+                    {
+                        slider.data.length > 0 && slider.data.map((item, index) => <span className="dot"
+                                                                                         key={item.id}
+                                                                                         onClick={() => currentSlide(index + 1)}/>)
+                    }
+                </div>
 
-            <div style={{textAlign: "center", marginTop: "10px"}}>
-                {
-                    slider.data.length > 0 && slider.data.map((item, index) => <span className="dot"
-                                                                                     key={item.id}
-                                                                                     onClick={() => currentSlide(index + 1)}/>)
-                }
-            </div>
-
-            <div className="container">
-                <div className="row">
-                    <a href={contactInfo.telegram} target='_blank'>
+                <div className="container">
+                    <div className="row">
+                        <a href={contactInfo.telegram} target='_blank'>
+                            <div className="col-sm">
+                                <div className="text_e">اینستاگرام<br/>ما را دنبال کنید</div>
+                            </div>
+                        </a>
+                        <a href={contactInfo.instagram} target='_blank'>
+                            <div className="col-sm">
+                                <div className="text_q">تلگرام<br/>ما را دنبال کنید</div>
+                            </div>
+                        </a>
                         <div className="col-sm">
-                            <div className="text_e">اینستاگرام<br/>ما را دنبال کنید</div>
+                            <Link to='/reserve'>
+                                <div className="text_r">رزرو زمین</div>
+                            </Link>
                         </div>
-                    </a>
-                    <a href={contactInfo.instagram} target='_blank'>
                         <div className="col-sm">
-                            <div className="text_q">تلگرام<br/>ما را دنبال کنید</div>
+                            <Link to='/reserve?c'>
+                                <div className="text_w">ثبت نام در کلاس</div>
+                            </Link>
                         </div>
-                    </a>
-                    <div className="col-sm">
-                        <Link to='/reserve'>
-                            <div className="text_r">رزرو زمین</div>
-                        </Link>
-                    </div>
-                    <div className="col-sm">
-                        <Link to='/reserve?c'>
-                            <div className="text_w">ثبت نام در کلاس</div>
-                        </Link>
                     </div>
                 </div>
-            </div>
 
-            <News className='new_a'/>
+                <News className='new_a' home={true}/>
+
+            </MainDiv>
+
 
         </>
     )

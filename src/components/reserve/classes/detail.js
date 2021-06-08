@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from 'react';
 import {getClass} from "../../../api";
 import NumberSeparator from "../../../utils/NumberSeparator";
+import MainDiv from "../../Common/MainDiv/MainDiv";
 
 const Detail = () => {
 
@@ -18,6 +19,7 @@ const Detail = () => {
     }, [param]);
 
     return (
+        <MainDiv>
         (data && data.id) ?
             <div className="container" style={{margin: 0, padding: 0, backgroundColor: '#fff'}}>
                 <p style={{
@@ -101,6 +103,7 @@ const Detail = () => {
             : <div>
                 <h4 className="text-danger text-center">کلاس یافت نشد</h4>
             </div>
+        </MainDiv>
     )
 }
 
