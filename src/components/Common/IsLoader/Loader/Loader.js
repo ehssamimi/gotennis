@@ -1,11 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React  from 'react';
 
 const Loader = (props) => {
-    // const [count, setCount] = useState(1);
-    useEffect(() => {
-        // Update the document title using the browser API
-        // return //for componentDidMount
-    }, []);
+
 
     return (
 

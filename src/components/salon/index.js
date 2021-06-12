@@ -6,39 +6,56 @@ import {getSans as getSansApi} from "../../api";
 import moment from "jalali-moment";
   import {Modal} from "../profile/modal";
 import MainDiv from "../Common/MainDiv/MainDiv";
+import TotalLoader from "../Common/IsLoader/LoaderTotal/TotalLoader";
 
 const Index = () => {
 
     let [sans, setSans] = useState({});
 
-    let [courtName, setCourtName] = useState(null);
+    let [courtName, setCourtName] = useState({name:null,complex:null});
 
     let [courtId, setCourtId] = useState(null);
 
     let [reservedata, setReservedata] = useState( []);
     let [count, setcount] = useState(false);
+    let [isLoading, setisLoading] = useState(true);
 
 
 
 
 
-    const getSans = id => {
+    const getSans = (id,name) => {
+
+
         setCourtId(id);
+        setCourtName({...courtName,name})
         getSansApi(id).then(response => {
+
             console.log(response.data.data)
             setSans(response.data.data);
+            setisLoading(false)
         }).catch(error => error);
 
 
     }
 
-    const getCourtName = name => setCourtName(name);
-    const updateReservedList = reserved =>{ setReservedata(reserved);setcount(!count)};
+    const getCourtName = (name,complex) => {
+
+        setCourtName({name:name,complex:complex})};
+    const updateReservedList = reserved =>{
+
+        setReservedata(reserved);
+        setcount(!count)
+
+    };
 
 
     return (
-        <MainDiv>
-        <>
+
+            <TotalLoader isLoading={isLoading}>
+
+
+
             <TopProfile getSans={getSans} getCourtName={getCourtName}/>
 
             <div className="container" style={{margin: '15px', marginTop: '-5px'}}>
@@ -47,7 +64,7 @@ const Index = () => {
                         <img className="salon_img" src="/assets/img/s4.png" alt=''/>
                     </div>
                     <div className="col-lg-4">
-                        <div className="salon_text"> {courtName}</div>
+                        <div className="salon_text"> {courtName.name}</div>
                         <br/>
                         <div className="salon_text1">اولین زمان رزرو</div>
                         <div className="salon_tt">
@@ -103,14 +120,14 @@ const Index = () => {
                 <p className="salon-p">رنگ صورتی مربوط به سانس بانوان و رنگ آبی مربوط به سانس آقایان می باشد.</p>
             </div>
 
-            <SlideShow court_id={courtId}  updateReservedList={updateReservedList} charts={sans.weeks}/>
+            <SlideShow court_id={courtId}  updateReservedList={updateReservedList} charts={sans.weeks} courtName={courtName}/>
 
-            <Reserve data={reservedata}/>
+            <Reserve data={reservedata} />
             <Modal  />
 
+            </TotalLoader>
 
-        </>
-        </MainDiv>
+
     )
 }
 

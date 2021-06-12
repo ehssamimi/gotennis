@@ -1,9 +1,14 @@
 import moment from "jalali-moment";
  import {Link} from "react-router-dom";
 import {NumberSeparatorFunction} from "../../utils/HelperFunction";
+import Factor from "./Factor";
+import FullScreenModal from "../Common/Modal/FullScreenModal";
+import React, {useState} from "react";
+import {SelectPay} from "../profile/modal";
+
 
 const Reserve = ({data}) => {
-
+    let [isOpen, setisOpen] = useState(false);
     const dateHandler = () => {
 
         const date = moment().locale('fa').format('MM-D');
@@ -63,6 +68,11 @@ const Reserve = ({data}) => {
         })
         return sum
     }
+    const goPayType=()=>{
+        setisOpen(!isOpen);
+        document.getElementById('payModal').style.display = 'block';
+    }
+
 
 
     return (
@@ -96,21 +106,27 @@ const Reserve = ({data}) => {
 
                 </div>
                 <br/>
-                <div style={{textAlign: "center"}}>
-                    <Link to="/pre-factor"
-                          style={{
-                              paddingTop: "10px",
-                              paddingBottom: "10px",
-                              paddingRight: "50px",
-                              paddingLeft: "50px",
-                              background: data.length>0?"#94d64e":"#e0e0e0",
-                              borderRadius: "10px",
-                              display: "block"
-                          }}>
+                <div  onClick={()=>{setisOpen(!isOpen)}}       style={{
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
+                    paddingRight: "50px",
+                    paddingLeft: "50px",
+                    background: data.length>0?"#94d64e":"#e0e0e0",
+                    borderRadius: "10px",
+                    display: "block",
+                    textAlign: "center"
+
+                }} >
+
                         ثبت و رزرو
-                    </Link>
-                </div>
+                 </div>
             </div>
+
+
+            <FullScreenModal isOpen={isOpen} toggle={()=>{setisOpen(!isOpen)}}>
+            <Factor data={data} SumPrice={SumPrice} goPayType={goPayType} />
+            </FullScreenModal>
+            <SelectPay wallet={0} total= { NumberSeparatorFunction(SumPrice(data))+' '+'تومان'  }/>
         </div>
     )
 

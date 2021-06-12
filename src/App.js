@@ -1,5 +1,7 @@
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
+
+
 import Home from './components/home';
 import Setting from './components/setting';
 import News from './components/news';

@@ -1,13 +1,13 @@
 import {useCallback, useEffect, useState} from "react";
 import {getSans} from "../../api";
 import {gotennisNotif} from "../../utils/Notification";
-import {getIndexIfObjWithAttr} from "../../utils/HelperFunction";
+import {getIndexIfObjWithAttr, monthHandler} from "../../utils/HelperFunction";
 import IsLoader from "../Common/IsLoader/IsLoader";
 import IsLoader2 from "../Common/IsLoader/IsLoader2";
 // import {hours} from "jalali-react-datepicker/dist/utils/timePicker";
 
-const SlideShow = ({court_id,updateReservedList,charts}) => {
-    const DaysArray=[0,1,2,3,4,5,6]
+const SlideShow = ({court_id,updateReservedList,charts,courtName}) => {
+    const DaysArray=[ 'شنبه','یکشنبه','دوشنبه','سه شنبه','چهار شنبه','پنج شنبه','جمعه'  ]
     let [slideIndex, setSlideIndex] = useState(1);
     let [isLoading, setisLoading] = useState(true);
     let [reservedata, setReservedata] = useState( []);
@@ -48,54 +48,6 @@ const SlideShow = ({court_id,updateReservedList,charts}) => {
 
     }, [slideIndex]);
 
-    const monthHandler = date => {
-        let month_number = date.split("-")[1];
-
-        let month_text = '';
-
-        switch (month_number) {
-            case '01':
-                month_text = 'فروردین';
-                break;
-            case '02':
-                month_text = 'اردیبهشت';
-                break;
-            case '03':
-                month_text = 'خرداد';
-                break;
-            case '04':
-                month_text = 'تیر';
-                break;
-            case '05':
-                month_text = 'مرداد';
-                break;
-            case '06':
-                month_text = 'شهریور';
-                break;
-            case '07':
-                month_text = 'مهر';
-                break;
-            case '08':
-                month_text = 'آبان';
-                break;
-            case '09':
-                month_text = 'آذر';
-                break;
-            case '10':
-                month_text = 'دی';
-                break;
-            case '11':
-                month_text = 'بهمن';
-                break;
-            case '12':
-                month_text = 'اسفند';
-                break;
-            default:
-                throw Error('ماه ناشناخته است.خطا از سمت سرور')
-        }
-        return month_text;
-
-    }
 
     const yearHandler = date => {
 
@@ -126,7 +78,14 @@ const SlideShow = ({court_id,updateReservedList,charts}) => {
     }
 
 
-    const handleClick = (sans,key,date,key4) => {
+    const handleClick = (sans,key,date,key4,index) => {
+        // console.log(sans)
+        //  console.log(key)
+        // console.log(date)
+        // console.log(key4)
+        // console.log(index)
+        // console.log( courtName)
+
         // document.getElementById('myModal').style.display = 'block';
 
         let type=["expired","occupied","reserved"]
@@ -144,8 +103,12 @@ const SlideShow = ({court_id,updateReservedList,charts}) => {
 
                 }else {
                     sansList[key][date][key4].status='selected'
-                    reservedata.push(sans)
+                    let mount=monthHandler(date);
+                    let newD=date.split("-")
+                    let NewSanse={...sans,'sanse_Date':[newD[2],mount,newD[0],DaysArray[index]],courtName}
+                    reservedata.push(NewSanse)
                 }
+
 
 
                 setSans(sansList);
@@ -192,7 +155,7 @@ const SlideShow = ({court_id,updateReservedList,charts}) => {
                 sansList.length > 0 && sansList.map((item, key) => {
                     return Object.keys(item).map((date, key2) => {
                             return <div className="mySlide" key={key + key2}>
-                                <p className="mySlide-p">{yearHandler(date)} {monthHandler(date)}</p>
+                                <p className="mySlide-p">{yearHandler(date)} { monthHandler(date)}</p>
 
                                 <div className="row">
 
@@ -216,10 +179,10 @@ const SlideShow = ({court_id,updateReservedList,charts}) => {
                                                     <div className="col">
 
                                                         {Object.values(item)[index].map((row, key4) =>
-                                                            <p className="mySlide-null" key={key4} onClick={() => handleClick(row,key,Object.keys(item)[index],key4)}>
+                                                            <p className="mySlide-null" key={key4} onClick={() => handleClick(row,key,Object.keys(item)[index],key4,index)}>
                                                           <span className={[" mySlide-default ",`${
                                                               row.status === "selected" ?"mySlide-s":
-                                                                  ( row.status === "expired" || row.status === "undefined") ?"mySlide-n":
+                                                                  ( row.status === "expired" || row.status === "undefined" ||row.status === "locked") ?"mySlide-n":
                                                                       row.status === "occupied" ?"mySlide-c":
                                                                           row.status === "reserved" ?"mySlide-r":
                                                                               row.gender === 1 ? "mySlide-w" : "mySlide-m"}`].join(" ")}>

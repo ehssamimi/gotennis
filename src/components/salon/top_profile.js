@@ -36,10 +36,10 @@ const TopProfile = props => {
         getCourts(param.id).then(response => {
 
             response = response.data.data.data;
-            console.log(response)
+            // console.log(response)
 
             setCourts(response);
-            props.getSans(response[0].id);
+            props.getSans(response[0].id,response[0].name,complex.name );
 
 
         }).catch(error => error);
@@ -48,7 +48,7 @@ const TopProfile = props => {
 
     const parentDataHandler = (e, court_id) => {
         props.getSans(court_id);
-        props.getCourtName(e.target.innerText);
+        props.getCourtName(e.target.innerText, complex.name);
     }
 
 
@@ -57,7 +57,7 @@ const TopProfile = props => {
             <div className="container">
                 <div className="row" style={{marginTop: "2%"}}>
                     <div className="col-sm-2">
-                        <div className="salon_t">
+                        <div className="salon_t" style={{marginTop: "1%"}}>
                             مجموعه:
                         </div>
                     </div>
@@ -68,9 +68,9 @@ const TopProfile = props => {
                     </div>
                 </div>
 
-                <div className="row" style={{marginTop: "1%", marginBottom: "5%"}}>
+                <div className="row align-items-center" style={{marginTop: "3%", marginBottom: "7%"}}>
                     <div className="col-sm-1">
-                        <div className="salon_t">
+                        <div className="salon_t" style={{marginTop: "2%"}}>
                             زمین:
                         </div>
                     </div>

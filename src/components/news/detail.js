@@ -21,36 +21,39 @@ const Detail = () => {
     }, [param]);
     return (
         <MainDiv>
-            (data && data.id) ?
+            {
+                (data && data.id) ?
 
-            <>
-                <div style={{
-                    color: '#337ab7',
-                    direction: 'rtl',
-                    padding: '10px 25px',
-                    display: 'flex',
-                    justifyContent: 'space-between'
-                }}>
-                    <p>
-                        {data.title}
-                    </p>
-                    <p>
-                        {data.created_at && moment(data.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
+                    <>
+                        <div style={{
+                            color: '#337ab7',
+                            direction: 'rtl',
+                            padding: '10px 25px',
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                        }}>
+                            <p>
+                                {data.title}
+                            </p>
+                            <p>
+                                {data.created_at && moment(data.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
 
-                    </p>
-                </div>
+                            </p>
+                        </div>
 
-                <img src={IMAGE_BASE_URL + data.image_id} alt="" style={{width: '100%'}}/>
-                <div className="container" style={{maxHeight: "70%", overflow: "auto"}}>
-                    <div className="row">
-                        <div className='col-md-12' dangerouslySetInnerHTML={{__html: data.description}}
-                             style={{padding: '10px 20px'}}/>
+                        <img src={IMAGE_BASE_URL + data.image_id} alt="" style={{width: '100%'}}/>
+                        <div className="container" style={{maxHeight: "70%", overflow: "auto"}}>
+                            <div className="row">
+                                <div className='col-md-12' dangerouslySetInnerHTML={{__html: data.description}}
+                                     style={{padding: '10px 20px'}}/>
+                            </div>
+                        </div>
+                    </>
+                    : <div>
+                        <h4 className="text-danger text-center">خبر یافت نشد</h4>
                     </div>
-                </div>
-            </>
-            : <div>
-            <h4 className="text-danger text-center">خبر یافت نشد</h4>
-        </div>
+            }
+
 
         </MainDiv>
 
