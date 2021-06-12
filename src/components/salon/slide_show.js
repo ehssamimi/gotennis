@@ -1,12 +1,12 @@
 import {useCallback, useEffect, useState} from "react";
-import {getSans} from "../../api";
+import {checkReserved, getSans} from "../../api";
 import {gotennisNotif} from "../../utils/Notification";
 import {getIndexIfObjWithAttr, monthHandler} from "../../utils/HelperFunction";
 import IsLoader from "../Common/IsLoader/IsLoader";
 import IsLoader2 from "../Common/IsLoader/IsLoader2";
 // import {hours} from "jalali-react-datepicker/dist/utils/timePicker";
 
-const SlideShow = ({court_id,updateReservedList,charts,courtName}) => {
+const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) => {
     const DaysArray=[ 'شنبه','یکشنبه','دوشنبه','سه شنبه','چهار شنبه','پنج شنبه','جمعه'  ]
     let [slideIndex, setSlideIndex] = useState(1);
     let [isLoading, setisLoading] = useState(true);
@@ -78,7 +78,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName}) => {
     }
 
 
-    const handleClick = (sans,key,date,key4,index) => {
+    const handleClick = async (sans,key,date,key4,index) => {
         // console.log(sans)
         //  console.log(key)
         // console.log(date)
@@ -89,31 +89,45 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName}) => {
         // document.getElementById('myModal').style.display = 'block';
 
         let type=["expired","occupied","reserved"]
+
+
         if ( !type.includes(sans.status)){
             if(sans.gender === 1){
                 gotennisNotif(3)
             }else  if(sans.gender === 0){
+                LoadingFunc(true)
+                let {data: {code , data , message }}= await checkReserved(sans.sans_id )
+                LoadingFunc(false)
+                if (code===200 && data){
+
+                    let indexItem= getIndexIfObjWithAttr(reservedata,'sans_id',sans.sans_id)
+                    if (sansList[key][date][key4].status==='selected'){
+                        sansList[key][date][key4].status= "available"
+                        reservedata.splice(indexItem,1)
+
+                    }else {
+                        sansList[key][date][key4].status='selected'
+                        let mount=monthHandler(date);
+                        let newD=date.split("-")
+                        let NewSanse={...sans,'sanse_Date':[newD[2],mount,newD[0],DaysArray[index]],courtName}
+                        reservedata.push(NewSanse)
+                    }
 
 
 
-                let indexItem= getIndexIfObjWithAttr(reservedata,'sans_id',sans.sans_id)
-                if (sansList[key][date][key4].status==='selected'){
-                     sansList[key][date][key4].status= "available"
-                    reservedata.splice(indexItem,1)
+                    setSans(sansList);
+                    setReservedata(reservedata)
+                    updateReservedList(reservedata)
+
 
                 }else {
-                    sansList[key][date][key4].status='selected'
-                    let mount=monthHandler(date);
-                    let newD=date.split("-")
-                    let NewSanse={...sans,'sanse_Date':[newD[2],mount,newD[0],DaysArray[index]],courtName}
-                    reservedata.push(NewSanse)
+                    gotennisNotif(4,message)
                 }
 
 
 
-                setSans(sansList);
-                setReservedata(reservedata)
-                updateReservedList(reservedata)
+
+
 
 
             }

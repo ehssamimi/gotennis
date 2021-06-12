@@ -21,18 +21,20 @@ export const SuccessNotify = (message = 'عملیات با موفقیت انجا
     toast.success(message, MessageOptions);
 }
 
-export const gotennisNotif = (type = 1) => {
-    let message=welcome();
+export const gotennisNotif = (type = 1 ,text) => {
+    let message=customeAlert('به اپلیکشین خوش آمدید ');
     switch(type) {
         case 1:
-            // code block
-            message=welcome();
+             message=customeAlert('به اپلیکشین خوش آمدید ');
             break;
         case 2:
-            message=Validate();
+            message=customeAlert('برای رزرو باید موبایل شما تایید شود ');
             break;
         case 3:
-            message=sanseGener();
+            message=customeAlert('خطا در جنسیت سانس');
+            break;
+        case 4:
+            message=customeAlert(text);
             break;
         default:
         // code block
@@ -44,7 +46,7 @@ export const gotennisNotif = (type = 1) => {
 
 
 const MessageOptions = {
-    position: "top-right",
+    position: "bottom-right",
     autoClose: 6000,
     hideProgressBar: true,
     closeOnClick: true,
@@ -63,20 +65,12 @@ const Style={
     fontFamily:"sans"
 }
 
-const welcome =()=>{
-    return(
-        <div dir='rtl'  style={Style}> <img src="/assets/img/avatar-380-456332.png" alt="" width={30}/>به اپلیکشین خوش آمدید  </div>
-    )
-}
-const Validate =()=>{
-    return(
-        <div dir='rtl'  style={Style}><img src="/assets/img/avatar-380-456332.png" alt="" width={30}/>برای رزرو باید موبایل شما تایید شود    </div>
-    )
-}
 
-const sanseGener =()=>{
+
+
+const customeAlert =(text)=>{
     return(
-        <div dir='rtl'  style={Style}><img src="/assets/img/avatar-380-456332.png" alt="" width={30}/>  خطا در  جنسیت سانس  </div>
+        <div dir='rtl'  style={Style}><img src="/assets/img/logo_new.png" alt="" width={30}/> {text}  </div>
     )
 }
 

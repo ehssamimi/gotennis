@@ -417,15 +417,15 @@ img {
 
 .slideIn{
     -webkit-animation-name: slideIn;
-    -webkit-animation-duration: 0.7s;
+    -webkit-animation-duration: 2s;
     animation-name: slideIn;
-    animation-duration: 0.7s;
+    animation-duration: 2s;
 }
 .fadeIn{
     -webkit-animation-name: fadeIn;
-    -webkit-animation-duration: 2s;
+    -webkit-animation-duration: 0.7s;
     animation-name: fadeIn;
-    animation-duration:2s;
+    animation-duration:0.7s;
 }
 /* Modal Content */
 #myModal .modal-content {
@@ -948,7 +948,7 @@ q {
     position: absolute;
     left: 0;
     right: 0;
-    border-bottom: 1px dashed #94d64e;
+    border-bottom: 1.8px dashed #94d64e;
     height: 50%;
 }
   .label-fill {
@@ -964,7 +964,7 @@ q {
     position: relative;
 }
   .label-fill-factor {
-    background: linear-gradient(to right, #329e67, #2fa966);
+    background:linear-gradient(to right, #31a166, #2bb464);
     float: left;
     margin-right: 20px;
     padding-right: 4px;
@@ -1831,3 +1831,7 @@ q {
 }.d-block{
     display: block;
 }
+
+ .Toastify__toast-body{
+     padding: 0!important;
+ }

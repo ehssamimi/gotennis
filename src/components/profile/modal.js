@@ -1,16 +1,15 @@
 import React, {useState, useEffect} from "react";
-// import {DatePicker} from "jalali-react-datepicker";
-import {updateUser} from "../../api";
+ import {paymentRequest, updateUser} from "../../api";
 import {gotennisNotif} from "../../utils/Notification";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import DatePicker from "react-modern-calendar-datepicker";
-import {BrowserRouter} from "react-router-dom";
-import SlideAnimation from "./SLideAnimation/SlideAnimation";
+ import SlideAnimation from "./SLideAnimation/SlideAnimation";
 import {UseSideAnimate} from "../../Hooks/UseSideAnimate/UseSideAnimate";
 import {NumberSeparatorFunction, validatephoneNumber} from "../../utils/HelperFunction";
+import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
 
 export const Modal = ({user,changeUser}) => {
-
+    const {User}=UseProfile();
     let [error, setError] = useState( {name:false,mobile:false})
     let [userInfo, setUserInfo] = useState( {
         birthday: null,
@@ -46,6 +45,7 @@ export const Modal = ({user,changeUser}) => {
         }
         if (validate){
             document.getElementById('myModal').style.display = 'none'
+
             document.getElementById('modalCenterOpen').click()
 
 
@@ -77,6 +77,7 @@ export const Modal = ({user,changeUser}) => {
     const handelChangeImg = (e) => {
         setUserInfo({...userInfo,profile_pic:e.target.files[0],profile_preview:URL.createObjectURL(e.target.files[0])})
     }
+
 
     return (
         <div id="myModal" className="modal"  onClick={closeModal}>
@@ -130,11 +131,9 @@ export const Modal = ({user,changeUser}) => {
                             <input id="mobile"
                                    name="mobile"
                                    type="text"
+                                   disabled={User.phoneValidate===true}
                                    value={userInfo.mobile}
                                    onChange={e => {setUserInfo({...userInfo,mobile: e.target.value});setError({...error,mobile:false})}}
-
-
-
                                    required=""/>
                             <span className="highlight"/>
                             <span className="bar"/>
@@ -153,10 +152,10 @@ export const Modal = ({user,changeUser}) => {
                             <input type="radio"
                                    id="male"
                                    name="gender"
-                                   defaultValue="1"
-                                   value="1"
-                                   checked={userInfo.gender === "1"}
-                                   onChange={e => setUserInfo({...userInfo,gender: "1"})}
+                                   defaultValue="0"
+                                   value="0"
+                                   checked={userInfo.gender === "0"}
+                                   onChange={e => setUserInfo({...userInfo,gender: "0"})}
                                    style={{marginRight: "10px"}}/>
                             <label htmlFor="male" style={{
                                 marginRight: '5px',
@@ -165,10 +164,10 @@ export const Modal = ({user,changeUser}) => {
 
                             <input type="radio" id="female"
                                    name="gender"
-                                   defaultValue="0"
-                                   value="0"
-                                   checked={userInfo.gender === "0"}
-                                   onChange={e => setUserInfo({...userInfo,gender: "0"})}
+                                   defaultValue="1"
+                                   value="1"
+                                   checked={userInfo.gender === "1"}
+                                   onChange={e => setUserInfo({...userInfo,gender: "1"})}
                                    style={{marginRight: "10px"}}/>
                             <label htmlFor="female" style={{
                                 marginRight: '5px',
@@ -226,8 +225,7 @@ export const CenterModal = (props) => {
         if (type===1){
             document.getElementById('close').click()
         }else {
-            console.log("tpe:" +type)
-            setphone("")
+             setphone("")
             setcode("")
             ChangePage( 1,'fadeEnter')
             setTimeout(function(){    document.getElementById('close').click() }, 500);
@@ -371,7 +369,7 @@ export const CenterModal = (props) => {
     );
 };
 
-export const SelectPay = ({wallet ,total , notMenu}) => {
+export const SelectPay = ({wallet ,total , notMenu,preOrderList}) => {
 
     let [error, setError] = useState( {name:false,mobile:false})
     let [walletCount, setwallet] = useState( 0)
@@ -384,14 +382,21 @@ export const SelectPay = ({wallet ,total , notMenu}) => {
         if (wallet!==undefined) setwallet(wallet);
     }, [wallet]);
 
-    const submitHandler = () => {
-
+    const submitHandler = async () => {
+        console.log(preOrderList)
+        if (payType===null){
+            gotennisNotif(4,'نوع پرداخت را انتخاب کنید')
+        }else {
             document.getElementById('payModal').style.display = 'none'
 
-
-
-
-
+            let {data: {code , data , message }}= await paymentRequest( payType,preOrderList.credit_id,'0')
+            console.log(code , data , message)
+            if (code===200){
+                gotennisNotif(4,message)
+            }else {
+                gotennisNotif(4,message)
+            }
+        }
 
 
     }
@@ -410,7 +415,7 @@ export const SelectPay = ({wallet ,total , notMenu}) => {
 
                 <div className="position-relative">
                     <p className='text-right Fs-14 text-GrayAsparagus pr-3 pl-3 pt-16 font-weight-bold '>انتخاب روش پرداخت </p>
-                    <p  className='text-right Fs-14 text-GrayAsparagus pr-3 pl-3 font-weight-bold' >موجودی کیف پوش شما : {walletCount} تومان </p>
+                    <p  className='text-right Fs-14 text-GrayAsparagus pr-3 pl-3 font-weight-bold' >موجودی کیف پوش شما : {NumberSeparatorFunction(walletCount)} تومان </p>
                     <p className='border-bottom w-100'></p>
                     <div className='d-flex justify-content-between pr-3 pl-3'>
                         <span className={['flex-center text-GrayAsparagus p-3  br-15px position-relative',payType===1?"borer-MountainMeadow":"borer-Silver "].join(" ")} onClick={()=>{setpayType(1)}}>
@@ -430,7 +435,7 @@ export const SelectPay = ({wallet ,total , notMenu}) => {
                     </div>
 
                     <div className='mt-3 bg-gray d-flex justify-content-between align-items-center   pr-3 pl-3' style={{height:'60px'}}>
-                         <span className='btn-modal-submit flex-center' style={{width:'45%'}}>
+                         <span className='btn-modal-submit flex-center' style={{width:'45%'}} onClick={submitHandler}>
                             <span>پرداخت</span>
 
                         </span>
@@ -447,23 +452,15 @@ export const SelectPay = ({wallet ,total , notMenu}) => {
 }
 
 export const PreFactor = (props) => {
-    const [phone, setphone] = useState('');
-    const [code, setcode] = useState('');
-    useEffect(() => {
-        if (props.compState!==undefined){
-            ChangePage( props.compState,'fadeExit')
-        }
 
-    }, [props.compState]);
-    let { mode,state,ChangePage}= UseSideAnimate()
+
+
     const resetStats =(type=1)=>{
         if (type===1){
             document.getElementById('close').click()
         }else {
-            console.log("tpe:" +type)
-            setphone("")
-            setcode("")
-            ChangePage( 1,'fadeEnter')
+
+
             setTimeout(function(){    document.getElementById('close').click() }, 500);
         }
 
@@ -541,3 +538,41 @@ export const PreFactor = (props) => {
 };
 
 
+
+// created_at: "2021-06-12 22:41:02"
+// deleted_at: null
+// details: Array(1)
+// 0:
+// cost: "55000"
+// created_at: "2021-06-12 22:41:02"
+// deleted_at: null
+// id: 662
+// is_used: null
+// payment_type: 1
+// reserve_id: "443"
+// sans:
+//     cost: "55000"
+// court: {id: 3, active: "1", name: "زمین شماره 1", complex_id: "2", phone: "02433446549", …}
+// court_id: "3"
+// created_at: "2021-05-16 08:31:23"
+// day: {due_date: "2021-06-20 00:00:00"}
+// day_id: "263"
+// deleted_at: null
+// finish_time: "22:00:00"
+// gender: "0"
+// id: 5533
+// sport_id: "1"
+// start_time: "21:00:00"
+// updated_at: "2021-06-12 22:41:06"
+// __proto__: Object
+// sans_id: "5533"
+// trace_code: "4986997"
+// updated_at: "2021-06-12 22:41:02"
+// __proto__: Object
+// length: 1
+// __proto__: Array(0)
+// id: 443
+// status_id: 1
+// total: "55000.00"
+// updated_at: "2021-06-12 22:41:06"
+// user_id: "2"

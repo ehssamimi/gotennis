@@ -1,4 +1,5 @@
 import React from "react";
+import {NumberSeparatorFunction} from "../../utils/HelperFunction";
 
 const Top = ({user}) => {
 
@@ -23,7 +24,7 @@ const Top = ({user}) => {
                             <i className="fa fa-user"/>
                         </div>
 
-                        <span className="profile_r">{user.balance} تومان</span>
+                        <span className="profile_r">{user.balance?NumberSeparatorFunction(user.balance):""} تومان</span>
                         <div className="profile_q">
                             <span>افزایش موجودی</span>
                             <i className="fa fa-dollar"/>

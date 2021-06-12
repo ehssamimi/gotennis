@@ -1,5 +1,5 @@
 export const validatephoneNumber = (phonenumber) => {
-    var re = /^(\+98|0)?9\d{9}$/;
+    var re = /^(\+98|0|98)?9\d{9}$/;
     return re.test(phonenumber);
 }
 export function  getIndexIfObjWithAttr   (array, attr, value) {

@@ -6,7 +6,7 @@ const MainDiv = (props) => {
 
     return (
         <>
-            <Header/>
+            <Header {...props}/>
             {
                 props.children
             }

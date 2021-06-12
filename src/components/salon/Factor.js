@@ -5,10 +5,10 @@ import {SelectPay} from "../profile/modal";
 
 
 const RowItem=(item)=>{
-    console.log(item)
+    // console.log(item)
 
     let{courtName,finish_time,start_time ,sanse_Date,price}=item
-        console.log(courtName)
+        // console.log(courtName)
     return(
         <div className='w-100 ' style={{marginTop:"8px"   }}>
             <div className=' w-100 d-flex justify-content-between flex-reverse pr-4 pl-4  '   >
@@ -40,7 +40,7 @@ const Factor = (props) => {
 
     }, []);
     let{data,SumPrice,goPayType}=props
-    console.log(data)
+    // console.log(data)
 
 
     return (

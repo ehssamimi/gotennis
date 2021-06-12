@@ -49,6 +49,10 @@ const Index = () => {
 
     };
 
+    const LoadingFunc=(loader)=>{
+        setisLoading(loader)
+    }
+
 
     return (
 
@@ -120,9 +124,10 @@ const Index = () => {
                 <p className="salon-p">رنگ صورتی مربوط به سانس بانوان و رنگ آبی مربوط به سانس آقایان می باشد.</p>
             </div>
 
-            <SlideShow court_id={courtId}  updateReservedList={updateReservedList} charts={sans.weeks} courtName={courtName}/>
+            <SlideShow court_id={courtId}  updateReservedList={updateReservedList} charts={sans.weeks} courtName={courtName}  LoadingFunc={LoadingFunc}/>
 
-            <Reserve data={reservedata} />
+            <Reserve data={reservedata} LoadingFunc={LoadingFunc}  />
+
             <Modal  />
 
             </TotalLoader>

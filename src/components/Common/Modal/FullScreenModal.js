@@ -34,17 +34,15 @@ const FullScreenModal = (props) => {
     let{isOpen,toggle}=props
     return (
 
-        <div className="w-100 zIndex-5 fadeIn ">
+        <div className="w-100 zIndex-5 slideIn ">
 
             <Modal
                 isOpen={ isOpen}
                  shouldCloseOnOverlayClick={true}
                 onRequestClose={ toggle }
                 style={customeStyle}
-                contentLabel="Example Modal fadeIn"
-                className='fadeIn'
-
-            >
+                contentLabel="Example Modal slideIn"
+                className='slideIn'>
 
 
 

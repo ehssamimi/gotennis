@@ -1,12 +1,14 @@
 import {CenterModal} from "../profile/modal";
 import {
+    Link,
     useHistory,
- } from "react-router-dom";
+} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 
 
-const Index = (  ) => {
+const Index = ( props ) => {
     let history = useHistory();
+
 
 
     useEffect(() => {
@@ -22,7 +24,7 @@ const Index = (  ) => {
             <div className="container h-100">
                 <div className="d-flex  justify-content-between align-items-center  text-white w-100 h-100"  style={{    flexDirection: 'row-reverse' }}>
                     <div className="  ">
-                        <span>رزرو مجموعه های ورزشی</span>
+                        <span dir='rtl'>{props.header!==undefined?props.header:"رزرو مجموعه های ورزشی"}</span>
                     </div>
 
 
@@ -36,7 +38,11 @@ const Index = (  ) => {
                                          data-target="#exampleModalCenter" id='modalCenterOpen'>
                                         <span style={{marginLeft:'1em'}}>ورود </span>
                                         <img src="/assets/img/avatar-380-456332.png" alt=''/>
-                                    </div>:""
+                                    </div>:props.backUrl!==undefined?
+                                     <Link to={props.backUrl}><i className="fa fa-long-arrow-left fa-2x text-white" aria-hidden="true"></i>
+                                     </Link>:
+
+                                     ""
 
                         }
 

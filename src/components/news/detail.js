@@ -13,6 +13,7 @@ const Detail = () => {
 
     useEffect(() => {
         getNews().then(response => {
+            console.log( response.data.data.data)
             response = response.data.data.data;
             response = response.filter(item => item.id == param.id);
             setData(...response);
@@ -20,7 +21,7 @@ const Detail = () => {
             .catch(error => error);
     }, [param]);
     return (
-        <MainDiv>
+        <MainDiv backUrl={'/news'} header={ data.title}>
             {
                 (data && data.id) ?
 

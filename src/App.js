@@ -11,11 +11,23 @@ import Reserve from './components/reserve';
 import Salon from './components/salon';
 import Classes from './components/reserve/classes/detail';
 
-import Header from "./components/Layout/Header";
-import Footer from "./components/Layout/Footer";
+ import Footer from "./components/Layout/Footer";
+import {useEffect} from "react";
+import {UseProfile} from "./Hooks/UseProfile/UseProfile";
+import {gotennisNotif} from "./utils/Notification";
+
 
 
 function App() {
+    const {initialUser}=UseProfile();
+        useEffect(()=>{
+            if (localStorage.getItem('GoTennisInfo')===null){
+                initialUser()
+                gotennisNotif(1)
+            }else {
+                gotennisNotif(1)
+            }
+         },[])
     return (
 
         <BrowserRouter>
@@ -29,6 +41,7 @@ function App() {
                 <Route path='/news/:id' component={NewsDetail}/>
                 <Route path='/profile' component={Profile}/>
                 <Route path='/reserve' component={Reserve}/>
+                <Route path='/my-reserve' component={Reserve}/>
                 <Route path='/salon/:id' component={Salon}/>
                 <Route path='/class/:id' component={Classes}/>
             </Switch>

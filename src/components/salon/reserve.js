@@ -5,10 +5,15 @@ import Factor from "./Factor";
 import FullScreenModal from "../Common/Modal/FullScreenModal";
 import React, {useState} from "react";
 import {SelectPay} from "../profile/modal";
+import {checkReserved, preOrder} from "../../api";
+import {gotennisNotif} from "../../utils/Notification";
+import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
 
 
-const Reserve = ({data}) => {
+const Reserve = ({data,LoadingFunc}) => {
+    const {User}=UseProfile();
     let [isOpen, setisOpen] = useState(false);
+    let [preOrderList, setpreOrderList] = useState({});
     const dateHandler = () => {
 
         const date = moment().locale('fa').format('MM-D');
@@ -68,9 +73,33 @@ const Reserve = ({data}) => {
         })
         return sum
     }
-    const goPayType=()=>{
+    const goPayType=async ( )=>{
+        console.log(data)
+        let sansList=data.map(item=>{
+            return item.sans_id
+        })
+
+        LoadingFunc(true)
+        //
+        let {data: {code , data:validate , message }}= await preOrder(sansList)
+        LoadingFunc(false)
+        console.log(code ,  validate , message)
+        setpreOrderList(validate)
+        // balance: 950800
+        // credit_id: 1265
+        // data: "223a4856-8a28-11e7-bb70-000c295eb8fc"
+        // type: 0
+        // url: ""
         setisOpen(!isOpen);
-        document.getElementById('payModal').style.display = 'block';
+        console.log(code==='200')
+        if (code==='200' ){
+
+
+            document.getElementById('payModal').style.display = 'block';
+        }else {
+            gotennisNotif(4,message)
+        }
+
     }
 
 
@@ -126,7 +155,7 @@ const Reserve = ({data}) => {
             <FullScreenModal isOpen={isOpen} toggle={()=>{setisOpen(!isOpen)}}>
             <Factor data={data} SumPrice={SumPrice} goPayType={goPayType} />
             </FullScreenModal>
-            <SelectPay wallet={0} total= { NumberSeparatorFunction(SumPrice(data))+' '+'تومان'  }/>
+            <SelectPay wallet={User.wallet} total= { NumberSeparatorFunction(SumPrice(data))+' '+'تومان'  } preOrderList={preOrderList}/>
         </div>
     )
 
