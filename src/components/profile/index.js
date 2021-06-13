@@ -80,8 +80,11 @@ const Index = () => {
                                 </Link>
                             </div>
                             <div className="col-sm-4">
-                                <div className="text_pro">رزروها<i className="fa fa-list-ol"
-                                                                   style={{paddingLeft: "5px", fontSize: "12px"}}/></div>
+                                <Link to='my-reserve'>
+                                    <div className="text_pro">رزروها<i className="fa fa-list-ol"
+                                                                       style={{paddingLeft: "5px", fontSize: "12px"}}/></div>
+                                </Link>
+
                             </div>
                             <div className="col-sm-4">
                                 <div className="text_pro">تراکنش ها<i className="fa fa-clock-o"

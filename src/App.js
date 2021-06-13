@@ -8,6 +8,7 @@ import News from './components/news';
 import NewsDetail from './components/news/detail';
 import Profile from './components/profile';
 import Reserve from './components/reserve';
+import MyReserved from './components/MyReserved';
 import Salon from './components/salon';
 import Classes from './components/reserve/classes/detail';
 
@@ -41,7 +42,7 @@ function App() {
                 <Route path='/news/:id' component={NewsDetail}/>
                 <Route path='/profile' component={Profile}/>
                 <Route path='/reserve' component={Reserve}/>
-                <Route path='/my-reserve' component={Reserve}/>
+                <Route path='/my-reserve' component={MyReserved}/>
                 <Route path='/salon/:id' component={Salon}/>
                 <Route path='/class/:id' component={Classes}/>
             </Switch>

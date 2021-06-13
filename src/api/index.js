@@ -20,6 +20,8 @@ const preOrderClass = ( class_id) => Axios.post(`/class/${class_id}/pre-order`, 
 const getCourts = async complex_id => Axios(`/courts?complex_id=${complex_id}`) ;
 
 
+const myReserved = () => Axios('/reserve');
+const myClass = () => Axios('/class/my_reserves');
 
 
 // const updateUser = data => AuthAxios.post(`/user/profile`, data);
@@ -43,7 +45,9 @@ export {
     checkReserved,
     preOrder,
     paymentRequest,
-    preOrderClass
+    preOrderClass,
+    myReserved,
+    myClass
 }
 
 export function ErrorResp(error) {
