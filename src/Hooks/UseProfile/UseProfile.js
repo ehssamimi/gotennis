@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export function UseProfile() {
-     const [User, setUser] = useState( {"wallet":"",'isLogin':"","token":"" ,'phoneValidate':false});
+     const [User, setUser] = useState( {"wallet":"",'isLogin':"","token":"" ,'phoneValidate':false,'complexName':""});
 
     useEffect(() => {
 
@@ -26,10 +26,8 @@ let oldUser=JSON.parse(localStorage.getItem("GoTennisInfo"));
 
     }
  const initialUser=( )=>{
-     localStorage.setItem("GoTennisInfo",JSON.stringify({"wallet":"",'isLogin':"","token":"",'phoneValidate':false }))
+     localStorage.setItem("GoTennisInfo",JSON.stringify({"wallet":"",'isLogin':"","token":"",'phoneValidate':false,'complexName':"" }))
     }
-
-
 
     return {
         User,EditUser,initialUser

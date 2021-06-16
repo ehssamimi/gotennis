@@ -3,16 +3,20 @@ import {getComplexes, getCourts} from "../../api";
 import {useParams} from "react-router-dom";
 import Swiper from 'react-id-swiper';
 import "swiper/css/swiper.css";
+import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
+import {getIndexIfObjWithAttr} from "../../utils/HelperFunction";
 
 const TopProfile = props => {
     const params = {
         initialSlide: 0,
         spaceBetween: 8,
-        slidesPerView:3,
+        slidesPerView:3.4,
         loop: false,
-        autoplay: false
+        autoplay: false,
+        // rtl: "ltr",
     };
 
+    const {EditUser}=UseProfile();
     let [complex, setComplex] = useState({});
 
     let [courts, setCourts] = useState([]);
@@ -28,17 +32,27 @@ const TopProfile = props => {
             response = response.filter(res => res.id == param.id);
 
             setComplex(...response);
+             EditUser(response[0].name,'complexName')
 
-            document.getElementsByClassName('salon_btn')[1].click();
+            // document.getElementsByClassName('salon_btn')[1].click();
 
         }).catch(error => error);
 
         getCourts(param.id).then(response => {
 
             response = response.data.data.data;
-            // console.log(response)
+             // console.log(response)
+            // response.map(item=> {return {...item," selectedselected":true}   )
+            // arr.map((item,index) => ({ ...item, selected:true }));
 
-            setCourts(response);
+
+            let arr=[];
+            response.map((item,index)=>{
+                let row={...item,selected:index===0};
+                arr.push(row)
+            })
+
+            setCourts(arr);
             props.getSans(response[0].id,response[0].name,complex.name );
 
 
@@ -49,6 +63,22 @@ const TopProfile = props => {
     const parentDataHandler = (e, court_id) => {
         props.getSans(court_id);
         props.getCourtName(e.target.innerText, complex.name);
+       let indexCourt= getIndexIfObjWithAttr(courts,'id',court_id)
+        console.log(indexCourt)
+        let arr=[];
+        courts.map((item,index)=>{
+            let row={};
+            if (index===indexCourt){
+                  row={...item,selected:!item.selected }
+            }else{
+                row={...item,selected:false };
+            }
+
+            arr.push(row)
+        })
+        setCourts(arr);
+        console.log(arr)
+
     }
 
 
@@ -62,7 +92,7 @@ const TopProfile = props => {
                         </div>
                     </div>
                     <div className="col-sm-10">
-                    <span className="salon_btn">
+                    <span className="salon_btn salon_btn_selected">
                         {complex.name}
                     </span>
                     </div>
@@ -74,20 +104,30 @@ const TopProfile = props => {
                             زمین:
                         </div>
                     </div>
-                    <div className="col-sm-11" style={{width: '91.66666667%'}}>
-                        {/*<Swiper {...params}  >*/}
+                    <div className="col-sm-11 pl-0" style={{width: '91.66666667%'}} dir='rtl'>
+
+
                             {
-                                courts.map(court => <span className="salon_btn"
-                                                          style={{marginTop: '3px', cursor: 'pointer'}}
-                                                          key={court.id}
-                                                          onClick={(e) => parentDataHandler(e, court.id,)}
-                                >
+                                courts.length>1?      <Swiper {...params}  >
+
+                                    {
+                                        courts.map(court => <span className={["salon_btn ",court.selected?' salon_btn_selected':' salon_btn_unselected'].join(' ')}
+                                                                  style={{marginTop: '3px', cursor: 'pointer'}}
+                                                                  key={court.id}
+                                                                  onClick={(e) => parentDataHandler(e, court.id,)}
+                                        >
                                 {court.name}
                             </span>)
 
 
-                             }
-                        {/*</Swiper>*/}
+                                    }
+                                </Swiper>:""
+
+                            }
+
+
+
+
 
 
 

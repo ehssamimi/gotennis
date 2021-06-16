@@ -1,19 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import FullScreenModal from "../Common/Modal/FullScreenModal";
-import {NumberSeparatorFunction} from "../../utils/HelperFunction";
-import {SelectPay} from "../profile/modal";
+import React  from 'react';
+ import {NumberSeparatorFunction} from "../../utils/HelperFunction";
+
 
 
 const RowItem=(item)=>{
-    // console.log(item)
+    const User=JSON.parse(localStorage.getItem('GoTennisInfo'));
 
     let{courtName,finish_time,start_time ,sanse_Date,price}=item
-        // console.log(courtName)
-    return(
+     return(
         <div className='w-100 ' style={{marginTop:"8px"   }}>
             <div className=' w-100 d-flex justify-content-between flex-reverse pr-4 pl-4  '   >
                 <div className='d-flex flex-column courtColor justify-content-center ' dir='rtl'  >
-                    <p  className='text-BlueBayoux' style={{ marginBottom:0}}>{courtName.complex}</p>
+                    <p  className='text-BlueBayoux' style={{ marginBottom:0}}>{User.complexName}</p>
                     <div className='border-bottom text-right 'style={{width:'80%'}}></div>
                     <div className='d-flex align-items-center text-SeaGreen'><i className="fa  fa-angle-double-left text-GrayAsparagus" aria-hidden="true"  style={{marginLeft:"8px" }}></i>
                         {courtName.name} </div>
@@ -35,12 +33,8 @@ const RowItem=(item)=>{
 }
 
 const Factor = (props) => {
-    // const [count, setCount] = useState(1);
-    useEffect(() => {
 
-    }, []);
     let{data,SumPrice,goPayType}=props
-    // console.log(data)
 
 
     return (

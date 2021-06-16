@@ -10,7 +10,7 @@ import {gotennisNotif} from "../../utils/Notification";
 import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
 
 
-const Reserve = ({data,LoadingFunc}) => {
+const Reserve = ({data,LoadingFunc,getSans}) => {
     const {User}=UseProfile();
     let [isOpen, setisOpen] = useState(false);
     let [preOrderList, setpreOrderList] = useState({});
@@ -93,10 +93,11 @@ const Reserve = ({data,LoadingFunc}) => {
         setisOpen(!isOpen);
         console.log(code==='200')
         if (code==='200' ){
-
+            getSans()
 
             document.getElementById('payModal').style.display = 'block';
         }else {
+            getSans()
             gotennisNotif(4,message)
         }
 
@@ -153,9 +154,9 @@ const Reserve = ({data,LoadingFunc}) => {
 
 
             <FullScreenModal isOpen={isOpen} toggle={()=>{setisOpen(!isOpen)}}>
-            <Factor data={data} SumPrice={SumPrice} goPayType={goPayType} />
+            <Factor data={data} SumPrice={SumPrice} goPayType={goPayType}   />
             </FullScreenModal>
-            <SelectPay wallet={User.wallet} total= { NumberSeparatorFunction(SumPrice(data))+' '+'تومان'  } preOrderList={preOrderList}/>
+            <SelectPay wallet={User.wallet} total= { NumberSeparatorFunction(SumPrice(data))+' '+'تومان'  } preOrderList={preOrderList} getSans={getSans}/>
         </div>
     )
 

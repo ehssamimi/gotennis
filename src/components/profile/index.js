@@ -48,6 +48,12 @@ const Index = () => {
             ListUser ['profile_preview']= response.data.data.profile_pic!==null?response.data.data.profile_pic: "/assets/img/avatar-380-456332.png"
             ListUser ['profile_pic']= null
             ListUser ['birthday']=  userirthday
+            ListUser ['push_id']=  '4'
+            ListUser ['device_id']=  '2g'
+            ListUser ['imei']= '1w'
+            ListUser ['mac_address']=   '3r'
+
+
 
             // ListUser ['birthday']= response.data.data.birthday!==null? {day: response.data.data.birthday.splice("-")[0], month: response.data.data.birthday.splice("-")[1], year: response.data.data.birthday.splice("-")[2]}:null
                 setUser(ListUser);

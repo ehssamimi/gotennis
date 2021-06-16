@@ -1,5 +1,6 @@
 import Axios from '../utils/Axios';
 import AuthAxios from "../utils/AuthAxios";
+import {gotennisNotif} from "../utils/Notification";
 
 const getNews = () => Axios('/news');
 const getSlider = () => Axios('/sliders');
@@ -25,9 +26,9 @@ const myClass = () => Axios('/class/my_reserves');
 
 
 // const updateUser = data => AuthAxios.post(`/user/profile`, data);
-const userLogin = data => Axios.post(`/user/login`, data);
-const verifyMobile = data => Axios.post(`/user/verify-mobile`, data);
-const updateUser = data => console.log(data);
+const userLogin = mobile => Axios.post(`/user/login`, {mobile});
+const verifyMobile = code => Axios.post(`/user/verify-mobile`, {code});
+const updateUser = data => Axios.post(`/user/profile`,data);
 
 export {
     getNews,
@@ -95,4 +96,10 @@ export function ErrorResp(error) {
     console.log("resp");
     console.log(resp);
     return resp;
+}
+export function showError(error) {
+    let{data: {code , data , message }}= ErrorResp(error)
+    console.log(error)
+    gotennisNotif(4,message)
+
 }

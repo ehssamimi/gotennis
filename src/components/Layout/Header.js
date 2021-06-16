@@ -32,7 +32,6 @@ const Index = ( props ) => {
                         {
                             history.location.pathname==='/profile'?
                                 <span className='d-flex align-items-center'><i className="fa fa-sign-out fa-2x " aria-hidden="true" style={{marginRight:"0.5em"}}/>  خروج از حساب کاربری</span>:
-
                                  history.location.pathname==='/'?
                                     <div className="  top_left d-flex align-items-center" data-toggle="modal"
                                          data-target="#exampleModalCenter" id='modalCenterOpen'>

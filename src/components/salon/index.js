@@ -24,9 +24,9 @@ const Index = () => {
 
 
 
-    const getSans = (id,name) => {
+    const getSans = (id=courtId,name=courtName.complex) => {
 
-
+console.log("****************sans************")
         setCourtId(id);
         setCourtName({...courtName,name})
         getSansApi(id).then(response => {
@@ -126,7 +126,7 @@ const Index = () => {
 
             <SlideShow court_id={courtId}  updateReservedList={updateReservedList} charts={sans.weeks} courtName={courtName}  LoadingFunc={LoadingFunc}/>
 
-            <Reserve data={reservedata} LoadingFunc={LoadingFunc}  />
+            <Reserve data={reservedata} LoadingFunc={LoadingFunc} getSans={getSans} />
 
             <Modal  />
 

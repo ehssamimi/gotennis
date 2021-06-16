@@ -1,11 +1,44 @@
 import Header from "./header";
 import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {getComplexes, myReserved} from "../../api";
+import React, {useEffect, useState} from "react";
+import { myReserved} from "../../api";
 import ListResponseHandler from "../../utils/AxiosResponse/Success/ListResponseHandler";
-import Classes from "./classes";
+import Classes from "./MyClassess";
 import {IMAGE_BASE_URL} from "../../utils/Config";
 import MainDiv from "../Common/MainDiv/MainDiv";
+ import RowShowEdit from "../Common/RowShowEdit/RowShowEdit";
+const JDate = require('jalali-date');
+
+const EachReserved=({item})=>{
+
+    let DataAccoure=item.sans_date.split(" ")[0].split("-")
+
+    const jdate4 = new JDate(new Date(Number(DataAccoure[0]), Number(DataAccoure[1]), Number(DataAccoure[2])));
+
+
+    return(
+
+        <Link to={`/my-reserve/reserve/${item.id}`} className=' w-100 col-container mb-2' dir='rtl'>
+            <div className="col-lg-3 new_q col-item mb-0">
+                <img className="new_img" src={item.court_image!==null && item.court_image!==""?item.court_image:"https://panel.gotennis.ir/loadImage/46" } alt=''/>
+            </div>
+            <div className="col-lg-9 new_e col-item ">
+                <div className='w-100 h-100 d-flex justify-content-around flex-column'>
+
+                        <p className='text-right Fs-14 text-BostonBlue mb-0' dir='rtl' > {item.sans.court.complex.name}</p>
+
+
+                    <div className='w-100 d-flex  ' dir='rtl'>
+                        <RowShowEdit label={'مورخ :'} value={jdate4.format('dddd DD MMMM')}/>
+                        <RowShowEdit label={'ساعت : '} value={ item.sans.start_time.split(":")[0]+ "-"+item.sans.finish_time.split(":")[0]}  className='mr-4'/>
+                    </div>
+                </div>
+
+            </div>
+        </Link>
+
+    )
+}
 
 const Index = () => {
 
@@ -17,36 +50,23 @@ const Index = () => {
 
 
     useEffect(() => {
-        myReserved().then(response => ListResponseHandler(response, setData))
+        myReserved().then(response => {
+             ListResponseHandler(response, setData)})
             .catch(error => error);
     }, []);
 
+    console.log(data.data)
     return (
         <MainDiv>
         <>
             <Header/>
 
             <div className="container">
-                <div id="reserve" className="tabcontent">
+                <div id="reserve" className="tabcontent" style={{paddingBottom:'50px'}}>
                     {
                         !data.loading ?
                             data.notFound ? <p className='text-center text-danger'>اطلاعاتی یافت نشد</p> :
-                                data.data.map(item => <div className="row" key={item.id}>
-                                    <Link to={`/salon/${item.id}`}>
-                                        <div className="col-lg-3 new_q">
-                                            {/*<img className="new_img" src={IMAGE_BASE_URL + item.images[0].id} alt=''/>*/}
-                                        </div>
-                                        <div className="col-lg-9 new_e">
-
-                                            <div className="tabcontent-text">
-                                                {item.name}
-                                            </div>
-                                            <div className="tabcontent-t"> تعداد زمین</div>
-
-                                        </div>
-                                    </Link>
-
-                                </div>)
+                                data.data.map((item,index) => <EachReserved item={item} key={index}/>)
                             : <p className='text-center text-warning'>در حال بارگزاری</p>
                     }
                 </div>

@@ -8,7 +8,7 @@ import News from './components/news';
 import NewsDetail from './components/news/detail';
 import Profile from './components/profile';
 import Reserve from './components/reserve';
-import MyReserved from './components/MyReserved';
+import MyReserved from './components/view/MyReserved/index';
 import Salon from './components/salon';
 import Classes from './components/reserve/classes/detail';
 
@@ -26,7 +26,7 @@ function App() {
                 initialUser()
                 gotennisNotif(1)
             }else {
-                gotennisNotif(1)
+
             }
          },[])
     return (

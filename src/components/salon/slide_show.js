@@ -4,9 +4,11 @@ import {gotennisNotif} from "../../utils/Notification";
 import {getIndexIfObjWithAttr, monthHandler} from "../../utils/HelperFunction";
 import IsLoader from "../Common/IsLoader/IsLoader";
 import IsLoader2 from "../Common/IsLoader/IsLoader2";
+import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
 // import {hours} from "jalali-react-datepicker/dist/utils/timePicker";
 
 const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) => {
+    const {User}=UseProfile();
     const DaysArray=[ 'شنبه','یکشنبه','دوشنبه','سه شنبه','چهار شنبه','پنج شنبه','جمعه'  ]
     let [slideIndex, setSlideIndex] = useState(1);
     let [isLoading, setisLoading] = useState(true);
@@ -86,54 +88,61 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
         // console.log(index)
         // console.log( courtName)
 
-        // document.getElementById('myModal').style.display = 'block';
+            console.log(User.phoneValidate)
+        if (!User.phoneValidate){
+            let type=["expired","occupied","reserved"]
 
-        let type=["expired","occupied","reserved"]
+
+            if ( !type.includes(sans.status)){
+                if(sans.gender === 1){
+                    gotennisNotif(3)
+                }else  if(sans.gender === 0){
+                    LoadingFunc(true)
+                    let {data: {code , data , message }}= await checkReserved(sans.sans_id )
+                    LoadingFunc(false)
+                    if (code===200 && data){
+
+                        let indexItem= getIndexIfObjWithAttr(reservedata,'sans_id',sans.sans_id)
+                        if (sansList[key][date][key4].status==='selected'){
+                            sansList[key][date][key4].status= "available"
+                            reservedata.splice(indexItem,1)
+
+                        }else {
+                            sansList[key][date][key4].status='selected'
+                            let mount=monthHandler(date);
+                            let newD=date.split("-")
+                            let NewSanse={...sans,'sanse_Date':[newD[2],mount,newD[0],DaysArray[index]],courtName}
+                            reservedata.push(NewSanse)
+                        }
 
 
-        if ( !type.includes(sans.status)){
-            if(sans.gender === 1){
-                gotennisNotif(3)
-            }else  if(sans.gender === 0){
-                LoadingFunc(true)
-                let {data: {code , data , message }}= await checkReserved(sans.sans_id )
-                LoadingFunc(false)
-                if (code===200 && data){
 
-                    let indexItem= getIndexIfObjWithAttr(reservedata,'sans_id',sans.sans_id)
-                    if (sansList[key][date][key4].status==='selected'){
-                        sansList[key][date][key4].status= "available"
-                        reservedata.splice(indexItem,1)
+                        setSans(sansList);
+                        setReservedata(reservedata)
+                        updateReservedList(reservedata)
+
 
                     }else {
-                        sansList[key][date][key4].status='selected'
-                        let mount=monthHandler(date);
-                        let newD=date.split("-")
-                        let NewSanse={...sans,'sanse_Date':[newD[2],mount,newD[0],DaysArray[index]],courtName}
-                        reservedata.push(NewSanse)
+                        gotennisNotif(4,message)
                     }
 
 
 
-                    setSans(sansList);
-                    setReservedata(reservedata)
-                    updateReservedList(reservedata)
 
 
-                }else {
-                    gotennisNotif(4,message)
+
+
                 }
 
 
-
-
-
-
-
             }
-
-
+        }else {
+            document.getElementById('myModal').style.display = 'block';
         }
+
+
+
+
 
 
 
@@ -176,7 +185,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
                                     {
                                         DaysArray.map((day,index)=>
 
-                                            <div className="col">
+                                            <div className="col" key={index}>
                                                 <span>{headerDateHandler(Object.keys(item)[index])}</span>
                                                 <p className="mySlide-a" dir='rtl'>{ index===0?"شنبه":index===6?"جمعه":`${index} شنبه  `} </p>
                                             </div>
@@ -190,7 +199,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
                                             {
                                                 DaysArray.map((day,index)=>
 
-                                                    <div className="col">
+                                                    <div className="col" key={index}>
 
                                                         {Object.values(item)[index].map((row, key4) =>
                                                             <p className="mySlide-null" key={key4} onClick={() => handleClick(row,key,Object.keys(item)[index],key4,index)}>

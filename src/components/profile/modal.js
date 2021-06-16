@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
- import {paymentRequest, updateUser} from "../../api";
+ import {paymentRequest, showError, updateUser, userLogin, verifyMobile} from "../../api";
 import {gotennisNotif} from "../../utils/Notification";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import DatePicker from "react-modern-calendar-datepicker";
@@ -27,26 +27,37 @@ export const Modal = ({user,changeUser}) => {
     });
 
     useEffect(() => {
-        console.log('**********user*******')
-        console.log(user)
+
         if (user!==undefined) setUserInfo(user);
      }, [user]);
 
     const submitHandler = () => {
         let validate=true
+
         if (userInfo.name.length<2){
-            setError({...error,name: true})
+            setError((prevState) => ({
+                ...prevState,
+                name:true,
+            }));
+            // setError({...error,name: true})
             validate=false
         }
 
         if (!validatephoneNumber(userInfo.mobile)){
-            setError({...error,mobile: true})
+            setError((prevState) => ({
+                ...prevState,
+                mobile: true
+            }));
+            // setError({...error,mobile: true})
             validate=false
         }
         if (validate){
-            document.getElementById('myModal').style.display = 'none'
+            // document.getElementById('myModal').style.display = 'none'
+            // if (!User.phoneValidate){
+            //     document.getElementById('modalCenterOpen').click()
+            // }
 
-            document.getElementById('modalCenterOpen').click()
+
 
 
             // gotennisNotif(2);
@@ -55,15 +66,56 @@ export const Modal = ({user,changeUser}) => {
             // setUserInfo(old => {
             //     return {old, ...ext_info}
             // });
-            console.log(userInfo)
-            if (changeUser!==undefined) changeUser(userInfo);
+            // console.log(userInfo)
+            //  let formData = new FormData();
+            // let phone='98'+'09112561701'.slice(1,11)
+            // console.log(phone)
+            // formData.append("name", userInfo.name);
+            // formData.append("push_id", userInfo.push_id);
+            // formData.append("push_id", userInfo.push_id);
+            // formData.append("device_id", userInfo.device_id);
+            // formData.append("imei", userInfo.imei);
+            // formData.append("mac_address", userInfo.mac_address);
+            // formData.append("mobile", phone);
+            // formData.append("gender", userInfo.gender);
+            // formData.append("username", userInfo.username);
+
+
+            document.querySelector(".aaaaaaaaaaaaa").click()
+
+
+
 
 
             //
-            // updateUser(userInfo).then(response => {
+            // active_reserves: 49
+            // balance: 895800
+            // birthday: {year: 1363, month: 3, day: 16}
+            // gender: "0"
+            // mobile: "09125416874"
+            // name: "mehrdad"
+            // profile_pic: null
+            // profile_preview: "https://panel.gotennis.ir/profilePic/2"
+            // push_id: "4"
+            // score: 10
+            // total_messages: 0
+            // total_play_time: 24
+            // total_reserves: 73
+            // unread_messages: 0
+
+            //
+            // updateUser(formData).then(response => {
+            //     console.log(response)
+            //     let {data: {code , data , message }}=response
+            //     if (code===200){
+            //         gotennisNotif(4,"اطلاعات کاربر به روز رسانی شد ")
+            //     }else  if (code===403){
+            //         document.getElementsByClassName('aaaaaaaaaaaaa').click()
+            //
+            //     }
             //         document.getElementById('myModal').style.display = 'none'
             //     }
-            // ).catch(error => error);
+            // ).catch(error => showError(error));
         }
 
 
@@ -77,7 +129,6 @@ export const Modal = ({user,changeUser}) => {
     const handelChangeImg = (e) => {
         setUserInfo({...userInfo,profile_pic:e.target.files[0],profile_preview:URL.createObjectURL(e.target.files[0])})
     }
-
 
     return (
         <div id="myModal" className="modal"  onClick={closeModal}>
@@ -205,7 +256,7 @@ export const Modal = ({user,changeUser}) => {
                     </div>
                 </div>
             </div>
-            <CenterModal compState={2}/>
+            <ValidatePhone />
         </div>
     );
 }
@@ -234,12 +285,34 @@ export const CenterModal = (props) => {
 
     }
     const submitPhone=()=>{
-        ChangePage( 2,'fadeExit')
+        let validate=true
+
+            console.log(phone)
+            console.log(validatephoneNumber(phone))
+        if (!validatephoneNumber(phone)){
+            gotennisNotif(4,'شماره تلفن وارده صحیح نمی باشد ')
+
+            validate=false
+        }
+        if (validate){
+            userLogin(phone).then(response => {
+                 // ChangePage( 2,'fadeExit')
+                    // document.getElementById('myModal').style.display = 'none'
+                }
+            ).catch(error => showError(error));
+        }
+
     }
     const submitcode=()=>{
-        ChangePage( 1,'fadeExit')
-    }
 
+        verifyMobile(phone).then(response => {
+                    // ChangePage( 2,'fadeExit')
+                     // document.getElementById('exampleModalCenter').style.display = 'none'
+                }
+            ).catch(error => showError(error));
+
+
+    }
 
 
     return (
@@ -256,12 +329,12 @@ export const CenterModal = (props) => {
                         <span data-dismiss="modal" aria-label="Close" id='close' style={{display:"none"}}>a</span>
 
                         <div className="modal-body">
-                            <SlideAnimation mode={mode} state={state}>
+                            <SlideAnimation mode={"fadeEnter"} state={1}>
                                 <div className='mainContent  '>
 
                                     <p className='text-center ' style={{color:"#353535",fontWeight:'bold'}}>جهت ادامه شماره موبایل خود را وارد کنید </p>
                                     <div className='w-100' style={{position:"relative",height:"44px"}}>
-                                        <input type="number" value={code} className='inputPhone text-center' placeholder='شماره موبایل'   onChange={e => setcode( e.target.value)}  />
+                                        <input type="number" value={phone} className='inputPhone text-center' placeholder='شماره موبایل'   onChange={e => setphone( e.target.value)}  />
 
 
                                         <span style={{position:"absolute",right:"8px",top:'3px'}} >  <i className="fa fa-mobile fa-2x text-danger" aria-hidden="true"></i></span>
@@ -309,7 +382,7 @@ export const CenterModal = (props) => {
 
                                     <p className='text-center ' style={{color:"#353535",fontWeight:'bold'}}>جهت ادامه کد فعال سازی پیامک شده را وارد کنید </p>
                                     <div className='w-100' style={{position:"relative",height:"44px"}}>
-                                        <input type="number" value={phone} className='inputPhone text-center' placeholder='کد فعال سازی'   onChange={e => setphone( e.target.value)}  />
+                                        <input type="number" value={code} className='inputPhone text-center' placeholder='کد فعال سازی'   onChange={e => setcode( e.target.value)}  />
 
 
                                         <span style={{position:"absolute",right:"8px",top:'3px'}} >  <i className="fa fa-mobile fa-2x text-danger" aria-hidden="true"></i></span>
@@ -368,34 +441,176 @@ export const CenterModal = (props) => {
         </div>
     );
 };
+export const ValidatePhone = (props) => {
+    const [phone, setphone] = useState('');
+    const [code, setcode] = useState('');
+    useEffect(() => {
+        if (props.compState!==undefined){
+            ChangePage( props.compState,'fadeExit')
+        }
 
-export const SelectPay = ({wallet ,total , notMenu,preOrderList}) => {
+    }, [props.compState]);
+    let { mode,state,ChangePage}= UseSideAnimate()
+    const resetStats =(type=1)=>{
+        if (type===1){
+            document.getElementById('close2').click()
+        }else {
+            setphone("")
+            setcode("")
+            ChangePage( 1,'fadeEnter')
+            setTimeout(function(){    document.getElementById('close2').click() }, 500);
+        }
 
-    let [error, setError] = useState( {name:false,mobile:false})
-    let [walletCount, setwallet] = useState( 0)
+
+    }
+    const submitPhone=()=>{
+        let validate=true
+
+        console.log(phone)
+        console.log(validatephoneNumber(phone))
+        if (!validatephoneNumber(phone)){
+            gotennisNotif(4,'شماره تلفن وارده صحیح نمی باشد ')
+
+            validate=false
+        }
+        if (validate){
+            userLogin(phone).then(response => {
+                    // ChangePage( 2,'fadeExit')
+                    // document.getElementById('myModal').style.display = 'none'
+                }
+            ).catch(error => showError(error));
+        }
+
+    }
+    const submitcode=()=>{
+
+        verifyMobile(phone).then(response => {
+                // ChangePage( 2,'fadeExit')
+                // document.getElementById('exampleModalCenter').style.display = 'none'
+            }
+        ).catch(error => showError(error));
+
+
+    }
+
+
+
+    return (
+        <div>
+            <div style={{display:"none"}}   data-toggle="modal" className='aaaaaaaaaaaaa'
+                 data-target="#exampleModalCenter" id='modalCenterOpen'>
+            </div>
+
+
+            <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                    <div className="modal-content w-100">
+                        <span data-dismiss="modal" aria-label="Close2" id='close2' style={{display:"none"}}>a</span>
+                        <div className="modal-body">
+
+
+
+
+                                    <p className='text-center ' style={{color:"#353535",fontWeight:'bold'}}>جهت ادامه کد فعال سازی پیامک شده را وارد کنید </p>
+                                    <div className='w-100' style={{position:"relative",height:"44px"}}>
+                                        <input type="number" value={code} className='inputPhone text-center' placeholder='کد فعال سازی'   onChange={e => setcode( e.target.value)}  />
+
+
+                                        <span style={{position:"absolute",right:"8px",top:'3px'}} >  <i className="fa fa-mobile fa-2x text-danger" aria-hidden="true"></i></span>
+
+                                    </div>
+                                    <div className='w-100 d-flex justify-content-between'  >
+
+                                         <span
+                                             onClick={()=>{resetStats(2)}}
+                                             style={{
+                                                 background: "#fff",
+                                                 color: "#000",
+                                                 padding: "5px",
+                                                 border: "1px solid #000",
+                                                 borderRadius: "5px",
+                                                 paddingRight: "10px",
+                                                 paddingLeft: "10px",
+                                                 marginTop: "1em",
+                                                 width:"45%"
+                                             }} className='text-center'>بستن</span>
+
+                                        <input type="submit" value="تایید"
+                                               onClick={submitcode}
+                                               style={{
+                                                   background: "#20d35e",
+                                                   color: "white",
+                                                   padding: "5px",
+                                                   border: "none",
+                                                   borderRadius: "5px",
+                                                   paddingRight: "10px",
+                                                   paddingLeft: "10px",
+                                                   marginTop: "1em",
+                                                   width:"45%"
+                                               }}/>
+
+
+
+
+
+
+
+
+                                    {/*<button  onClick={()=>{ChangePage( 2,'fadeExit')}}>next</button>*/}
+                                </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    );
+};
+
+export const SelectPay = ({wallet ,total , notMenu,preOrderList,getSans}) => {
+
+     let [walletCount, setwallet] = useState( 0)
     let [payType, setpayType] = useState( null)
 
 
     useEffect(() => {
-        console.log('**********wallet*******')
-        console.log(wallet)
+
         if (wallet!==undefined) setwallet(wallet);
     }, [wallet]);
 
     const submitHandler = async () => {
-        console.log(preOrderList)
-        if (payType===null){
+         if (payType===null){
             gotennisNotif(4,'نوع پرداخت را انتخاب کنید')
         }else {
             document.getElementById('payModal').style.display = 'none'
+            if (payType===2){
+                 // console.log(preOrderList.url)
+                window.location.href = preOrderList.url;
 
-            let {data: {code , data , message }}= await paymentRequest( payType,preOrderList.credit_id,'0')
-            console.log(code , data , message)
-            if (code===200){
-                gotennisNotif(4,message)
             }else {
-                gotennisNotif(4,message)
+                let {data: {code , data , message }}= await paymentRequest( payType,preOrderList.credit_id,'0')
+                // console.log(code , data , message)
+                closeModal()
+                if (code===200){
+                    gotennisNotif(4,message)
+
+                }else {
+                    gotennisNotif(4,message)
+                }
+            if (getSans!==undefined){
+                getSans()
             }
+
+            }
+
+
         }
 
 
@@ -446,6 +661,7 @@ export const SelectPay = ({wallet ,total , notMenu,preOrderList}) => {
 
                 </div>
             </div>
+
             <CenterModal compState={2}/>
         </div>
     );

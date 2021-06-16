@@ -5,12 +5,10 @@ const SlideAnimation = (props) => {
     const [state, setstate] = useState(1);
     const [mode, setmode] = useState("fadeEnter");
     useEffect(() => {
-        console.log(props.state)
-        setstate(props.state)
+         setstate(props.state)
     },[ props.state]);
     useEffect(() => {
-        console.log(props.mode)
-        setmode(props.mode)
+         setmode(props.mode)
     },[ props.mode]);
 let{DivClass}=props
     return (
