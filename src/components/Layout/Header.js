@@ -4,11 +4,12 @@ import {
     useHistory,
 } from "react-router-dom";
 import React, {useState, useEffect} from 'react';
+import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
 
 
 const Index = ( props ) => {
     let history = useHistory();
-
+    const {User} = UseProfile( );
 
 
     useEffect(() => {
@@ -33,11 +34,17 @@ const Index = ( props ) => {
                             history.location.pathname==='/profile'?
                                 <span className='d-flex align-items-center'><i className="fa fa-sign-out fa-2x " aria-hidden="true" style={{marginRight:"0.5em"}}/>  خروج از حساب کاربری</span>:
                                  history.location.pathname==='/'?
+                                     User.token!==""?   <Link to={'/profile'} className="  top_left d-flex align-items-center"  >
+                                             <span style={{marginLeft:'1em'}}>{User.name} </span>
+                                             <img src={User.img}  alt=''/>
+                                         </Link>:
                                     <div className="  top_left d-flex align-items-center" data-toggle="modal"
                                          data-target="#exampleModalCenter" id='modalCenterOpen'>
                                         <span style={{marginLeft:'1em'}}>ورود </span>
                                         <img src="/assets/img/avatar-380-456332.png" alt=''/>
-                                    </div>:props.backUrl!==undefined?
+                                    </div>
+
+                                     :props.backUrl!==undefined?
                                      <Link to={props.backUrl}><i className="fa fa-long-arrow-left fa-2x text-white" aria-hidden="true"></i>
                                      </Link>:
 

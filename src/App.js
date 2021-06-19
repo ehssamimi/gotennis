@@ -16,6 +16,7 @@ import Classes from './components/reserve/classes/detail';
 import {useEffect} from "react";
 import {UseProfile} from "./Hooks/UseProfile/UseProfile";
 import {gotennisNotif} from "./utils/Notification";
+import SuccessPayment from "./components/SuccessPayment/SuccessPayment";
 
 
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path='/my-reserve' component={MyReserved}/>
                 <Route path='/salon/:id' component={Salon}/>
                 <Route path='/class/:id' component={Classes}/>
+                <Route path='/success-payment/:id' component={SuccessPayment}/>
             </Switch>
 
             <Footer/>

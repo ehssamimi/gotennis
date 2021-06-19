@@ -265,6 +265,7 @@ export const Modal = ({user,changeUser}) => {
 export const CenterModal = (props) => {
     const [phone, setphone] = useState('');
     const [code, setcode] = useState('');
+    const {EditUser} = UseProfile( );
     useEffect(() => {
         if (props.compState!==undefined){
             ChangePage( props.compState,'fadeExit')
@@ -295,17 +296,38 @@ export const CenterModal = (props) => {
             validate=false
         }
         if (validate){
+
             userLogin(phone).then(response => {
-                 // ChangePage( 2,'fadeExit')
-                    // document.getElementById('myModal').style.display = 'none'
+                console.log(response)
+                 ChangePage( 2,'fadeEnter')
+
                 }
-            ).catch(error => showError(error));
+            ).catch(error =>{
+                showError(error)
+                document.getElementById('myModal').style.display = 'none'
+            });
         }
 
     }
-    const submitcode=()=>{
+    const submitcode=async ()=>{
 
-        verifyMobile(phone).then(response => {
+        await verifyMobile(code,phone).then  ( async response => {
+            console.log(response)
+            console.log(response.data.data.access_token)
+            let userName="کاربر"
+               await EditUser('Bearer'+' '+response.data.data.access_token,'token')
+            if (  response.data.data.profile_pic!==null){
+                await EditUser( response.data.data.profile_pic,'img')
+            }  if (  response.data.data.name!==null){
+                    userName=response.data.data.name
+                await EditUser( response.data.data.name,'name')
+            }
+
+
+                resetStats();
+                gotennisNotif(4,'خوش آمدید '+userName)
+
+
                     // ChangePage( 2,'fadeExit')
                      // document.getElementById('exampleModalCenter').style.display = 'none'
                 }
@@ -329,7 +351,7 @@ export const CenterModal = (props) => {
                         <span data-dismiss="modal" aria-label="Close" id='close' style={{display:"none"}}>a</span>
 
                         <div className="modal-body">
-                            <SlideAnimation mode={"fadeEnter"} state={1}>
+                            <SlideAnimation mode={"fadeEnter"} state={state}>
                                 <div className='mainContent  '>
 
                                     <p className='text-center ' style={{color:"#353535",fontWeight:'bold'}}>جهت ادامه شماره موبایل خود را وارد کنید </p>
@@ -709,7 +731,7 @@ export const PreFactor = (props) => {
 
                                         <p className='container-fill '>
                                             <div className='filler-fill'></div>
-                                            <span className='label-fill-factor' style={{color: "#b0eb2e"}} dir='rtl'>{ props.data.name} </span>
+                                         <span className='label-fill-factor text-ellipsis' style={{color: "#b0eb2e",maxWidth:'95px'}}dir='rtl'>{ props.data.name} </span>
                                             <span className='text-fill-factor'>نام کلاس انتخابی</span>
                                         </p>
 

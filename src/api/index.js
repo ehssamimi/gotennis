@@ -1,4 +1,5 @@
 import Axios from '../utils/Axios';
+import Axios2 from '../utils/Axios2';
 import AuthAxios from "../utils/AuthAxios";
 import {gotennisNotif} from "../utils/Notification";
 
@@ -17,18 +18,17 @@ const getClasses = () => Axios('/class');
 const getClass = id => Axios(`/class/${id}`);
 const preOrderClass = ( class_id) => Axios.post(`/class/${class_id}/pre-order`, {class_id}).then(response=>  response).catch(error => ErrorResp(error) );
 
-
 const getCourts = async complex_id => Axios(`/courts?complex_id=${complex_id}`) ;
-
 
 const myReserved = () => Axios('/reserve');
 const myClass = () => Axios('/class/my_reserves');
 
+const getSuccess = (id) => Axios(`/credits/${id}`);
 
-// const updateUser = data => AuthAxios.post(`/user/profile`, data);
-const userLogin = mobile => Axios.post(`/user/login`, {mobile});
-const verifyMobile = code => Axios.post(`/user/verify-mobile`, {code});
-const updateUser = data => Axios.post(`/user/profile`,data);
+const updateUser = data => AuthAxios.post(`/user/profile`, data);
+const userLogin = mobile => Axios2.post(`/login-mobile`, {mobile});
+const verifyMobile = (code,mobile) => Axios2.post(`/verify-mobile`, {  mobile, code});
+// const updateUser = data => Axios.post(`/user/profile`,data);
 
 export {
     getNews,
@@ -48,7 +48,8 @@ export {
     paymentRequest,
     preOrderClass,
     myReserved,
-    myClass
+    myClass,
+    getSuccess
 }
 
 export function ErrorResp(error) {

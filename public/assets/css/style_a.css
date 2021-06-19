@@ -984,6 +984,13 @@ q {
     position: relative;
       color: white;
 }
+.label-fill-factor2 {
+     background:linear-gradient(to right, #32a067, #2caf64);
+    float: left;
+    margin-right: 20px;
+    padding-right: 4px;
+    position: relative;
+}
 
 
 
@@ -1943,4 +1950,10 @@ q {
 }
 #fieldsCourt > .swiper-container{
     z-index: 0!important;
+}
+.text-ellipsis{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 91%;
+    overflow: hidden;
 }

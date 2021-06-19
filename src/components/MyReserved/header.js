@@ -33,7 +33,7 @@ const Header = () => {
         <div className="top_header">
             <div className="container">
                 <div className="tab">
-                    <button className="tablinks" onClick={(e) => openCity(e, 'reserve')} id="defaultOpen">رزرو های من
+                    <button className="tablinks" onClick={(e) => openCity(e, 'reserve')} id="defaultOpen">سانس های من
                     </button>
                     <button className="tablinks" onClick={(e) => openCity(e, 'registration')} id='_registration'> کلاس های من
                     </button>

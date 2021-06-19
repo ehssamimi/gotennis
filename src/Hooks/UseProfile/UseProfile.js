@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export function UseProfile() {
-     const [User, setUser] = useState( {"wallet":"",'isLogin':"","token":"" ,'phoneValidate':false,'complexName':""});
+     const [User, setUser] = useState( {"wallet":"",'isLogin':"","token":"" ,'phoneValidate':false,'complexName':"",'name':"کاربر",'img':"/assets/img/avatar-380-456332.png" });
 
     useEffect(() => {
 
@@ -11,22 +11,31 @@ export function UseProfile() {
 
             if (f!==-1){
                 let Profile=JSON.parse(localStorage.getItem("GoTennisInfo"))
-                setUser({...User,wallet:Profile.wallet,isLogin:Profile.isLogin,token:Profile.token })
+                setUser({
+                    ...User,
+                    wallet: Profile.wallet,
+                    isLogin: Profile.isLogin,
+                    token: Profile.token,
+                    phoneValidate: Profile.phoneValidate,
+                    complexName: Profile.complexName,
+                    name: Profile.name,
+                    img: Profile.img
+                })
             }
         }
 
     }, []);
 
 
-    const EditUser=(value,type)=>{
+    const EditUser= async (value,type)=>{
 let oldUser=JSON.parse(localStorage.getItem("GoTennisInfo"));
         let NewUser={...oldUser,[type]:value}
         setUser(NewUser)
-        localStorage.setItem("GoTennisInfo",JSON.stringify(NewUser))
+       await localStorage.setItem("GoTennisInfo",JSON.stringify(NewUser))
 
     }
  const initialUser=( )=>{
-     localStorage.setItem("GoTennisInfo",JSON.stringify({"wallet":"",'isLogin':"","token":"",'phoneValidate':false,'complexName':"" }))
+     localStorage.setItem("GoTennisInfo",JSON.stringify({"wallet":"",'isLogin':"","token":"",'phoneValidate':false,'complexName':"",'name':"کاربر",'img':"/assets/img/avatar-380-456332.png" }))
     }
 
     return {
