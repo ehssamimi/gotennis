@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export function UseProfile() {
-     const [User, setUser] = useState( {"wallet":"",'isLogin':"","token":"" ,'phoneValidate':false,'complexName':"",'name':"کاربر",'img':"/assets/img/avatar-380-456332.png" });
+     const [User, setUser] = useState( {"wallet":"",'isLogin':"","token":"" ,'phoneValidate':false,'complexName':"",'name':"کاربر",'img':"/assets/img/avatar-380-456332.png" ,'phoneNumber':""});
 
     useEffect(() => {
 
@@ -19,7 +19,8 @@ export function UseProfile() {
                     phoneValidate: Profile.phoneValidate,
                     complexName: Profile.complexName,
                     name: Profile.name,
-                    img: Profile.img
+                    img: Profile.img,
+                    phoneNumber: Profile.phoneNumber
                 })
             }
         }
@@ -35,7 +36,7 @@ let oldUser=JSON.parse(localStorage.getItem("GoTennisInfo"));
 
     }
  const initialUser=( )=>{
-     localStorage.setItem("GoTennisInfo",JSON.stringify({"wallet":"",'isLogin':"","token":"",'phoneValidate':false,'complexName':"",'name':"کاربر",'img':"/assets/img/avatar-380-456332.png" }))
+     localStorage.setItem("GoTennisInfo",JSON.stringify({"wallet":"",'isLogin':"","token":"",'phoneValidate':false,'complexName':"",'name':"کاربر",'img':"/assets/img/avatar-380-456332.png" ,'phoneNumber':""}))
     }
 
     return {

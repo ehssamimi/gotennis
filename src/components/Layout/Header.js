@@ -1,24 +1,30 @@
-import {CenterModal} from "../profile/modal";
+import {CenterModal, PhoneValidate} from "../profile/modal";
 import {
     Link,
     useHistory,
 } from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
+import {UseModals} from "../../Hooks/UseModals/UseModals";
 
 
 const Index = ( props ) => {
     let history = useHistory();
-    const {User} = UseProfile( );
-
+    const {User,initialUser} = UseProfile( );
+    const { Modal,toggleModal}=UseModals();
 
     useEffect(() => {
 
-        console.log(history.location.pathname)
+        // console.log(history.location.pathname)
+        // console.log(User.token);
 
         // Update the document title using the browser API
         // return //for componentDidMount
     }, []);
+    const logOut=()=>{
+        initialUser()
+        window.location.reload()
+    }
 
     return (
         <div className="top_header">
@@ -32,14 +38,19 @@ const Index = ( props ) => {
                     <div >
                         {
                             history.location.pathname==='/profile'?
-                                <span className='d-flex align-items-center'><i className="fa fa-sign-out fa-2x " aria-hidden="true" style={{marginRight:"0.5em"}}/>  خروج از حساب کاربری</span>:
-                                 history.location.pathname==='/'?
+                                User.token!==""?
+                                    <span className='d-flex align-items-center'  onClick={logOut}><i className="fa fa-sign-out fa-2x " aria-hidden="true" style={{marginRight:"0.5em"}}/>  خروج از حساب کاربری</span>:
+                                      <div className="  top_left d-flex align-items-center"
+                                            onClick={()=>{toggleModal("profile")}}>
+                                    <span style={{marginLeft:'1em'}}>ورود </span>
+                                    <img src="/assets/img/avatar-380-456332.png" alt=''/>
+                                </div>:
+                                    history.location.pathname==='/'?
                                      User.token!==""?   <Link to={'/profile'} className="  top_left d-flex align-items-center"  >
                                              <span style={{marginLeft:'1em'}}>{User.name} </span>
                                              <img src={User.img}  alt=''/>
                                          </Link>:
-                                    <div className="  top_left d-flex align-items-center" data-toggle="modal"
-                                         data-target="#exampleModalCenter" id='modalCenterOpen'>
+                                    <div className="  top_left d-flex align-items-center" onClick={()=>{toggleModal("profile")}}>
                                         <span style={{marginLeft:'1em'}}>ورود </span>
                                         <img src="/assets/img/avatar-380-456332.png" alt=''/>
                                     </div>
@@ -61,7 +72,7 @@ const Index = ( props ) => {
 
                 </div>
             </div>
-            <CenterModal/>
+            <PhoneValidate isOpen={Modal.isOpen} toggle={()=>{toggleModal("profile")}} finishRequest={()=>{console.log("end")}} />
 
         </div>
     );

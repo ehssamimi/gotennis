@@ -1,14 +1,17 @@
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {checkReserved, getSans} from "../../api";
 import {gotennisNotif} from "../../utils/Notification";
 import {getIndexIfObjWithAttr, monthHandler} from "../../utils/HelperFunction";
 import IsLoader from "../Common/IsLoader/IsLoader";
 import IsLoader2 from "../Common/IsLoader/IsLoader2";
 import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
+import {PhoneValidate} from "../profile/modal";
+import {UseModals} from "../../Hooks/UseModals/UseModals";
 // import {hours} from "jalali-react-datepicker/dist/utils/timePicker";
 
 const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) => {
     const {User}=UseProfile();
+    const { Modal,toggleModal,openModal}=UseModals();
     const DaysArray=[ 'شنبه','یکشنبه','دوشنبه','سه شنبه','چهار شنبه','پنج شنبه','جمعه'  ]
     let [slideIndex, setSlideIndex] = useState(1);
     let [isLoading, setisLoading] = useState(true);
@@ -88,8 +91,15 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
         // console.log(index)
         // console.log( courtName)
 
-            console.log(User.phoneValidate)
-        if (!User.phoneValidate){
+            // console.log(User.phoneValidate)
+        let Profile='';
+        if (localStorage.getItem("GoTennisInfo")){
+            Profile=JSON.parse(localStorage.getItem("GoTennisInfo"))
+        }else {
+            Profile=User
+        }
+
+        if (Profile.phoneValidate && Profile.name!== 'کاربر'){
             let type=["expired","occupied","reserved"]
 
 
@@ -137,7 +147,15 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
 
             }
         }else {
-            document.getElementById('myModal').style.display = 'block';
+            console.log(User.phoneValidate)
+            console.log(Profile.phoneValidate)
+            if (Profile.phoneValidate){
+                document.getElementById('myModal').style.display = 'block';
+            }else {
+                toggleModal("profile")
+            }
+
+
         }
 
 
@@ -153,11 +171,15 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
 
     useEffect(() => {
         setisLoading(true)
+
+
+            // document.getElementById('modalCenterOpen').click()
+
+            // document.getElementById('myModal').style.display = 'block';
         if (court_id!==null){
             getSans(court_id).then(response => {
                 setisLoading(false)
-                console.log(response.data.data)
-                setSans(response.data.data.weeks);
+                 setSans(response.data.data.weeks);
 
                 showSlides(slideIndex);
 
@@ -166,6 +188,22 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
         }
 
     }, [court_id, showSlides, slideIndex]);
+
+    useEffect(() => {
+        setisLoading(true)
+
+        let Profile=JSON.parse(localStorage.getItem("GoTennisInfo"))
+        console.log(Profile)
+        if (!Profile.phoneValidate || Profile.name=== 'کاربر'){
+
+            if (Profile.phoneValidate){
+                console.log("open User")
+                document.getElementById('myModal').style.display = 'block';
+            }else {
+                toggleModal("profile")
+            }
+        }
+    }, [ ]);
 
 
 
@@ -232,7 +270,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
 
             <a className="prev" id="prev" onClick={() => plusSlides(-1)}>❮</a>
             <a className="next" id="next" onClick={() => plusSlides(1)}>❯</a>
-
+            <PhoneValidate isOpen={Modal.isOpen} toggle={()=>{toggleModal("profile")}}  finishRequest={()=>{ window.location.reload()} }/>
         </div>
     )
 }

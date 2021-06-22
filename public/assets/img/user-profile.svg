@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>C06EEE97-3AD8-45FA-8EBD-81F0A6DE260C</title>
+    <defs>
+        <linearGradient x1="0%" y1="100%" x2="100%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#339967" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#339967" stop-opacity="0.3" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="profile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="guest" transform="translate(-152.000000, -282.000000)">
+            <g id="Group-19" transform="translate(58.000000, 282.000000)">
+                <g id="user-profile.6" transform="translate(94.000000, 0.000000)">
+                    <polygon id="Path" points="0 0 48 0 48 48 0 48"></polygon>
+                    <path d="M12.49,40 L12.49,40 C12.49,35.962 15.764,32.688 19.802,32.688 L28.198,32.688 C32.236,32.688 35.51,35.962 35.51,40 L35.51,40" id="Path" stroke="#339967" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M28.8832,16.02272 C31.58016,18.71968 31.58016,23.09232 28.8832,25.78928 C26.18624,28.48624 21.8136,28.48624 19.11664,25.78928 C16.41968,23.09232 16.41968,18.71968 19.11664,16.02272 C21.8136,13.32576 26.18624,13.32576 28.8832,16.02272" id="Path" stroke="#339967" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M28,40 L38,40 C40.21,40 42,38.21 42,36 L42,12 C42,9.79 40.21,8 38,8 L10,8 C7.79,8 6,9.79 6,12 L6,36 C6,38.21 7.79,40 10,40 L20,40 L24,44 L28,40 Z" id="Path" stroke="#339967" stroke-width="3" fill="url(#linearGradient-1)" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

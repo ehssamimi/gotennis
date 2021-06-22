@@ -20,6 +20,7 @@ const Index = () => {
         getComplexes().then(response => ListResponseHandler(response, setData))
             .catch(error => error);
     }, []);
+    console.log(data)
 
     return (
         <MainDiv>
@@ -34,7 +35,7 @@ const Index = () => {
                                 data.data.map(item => <div className="row" key={item.id}>
                                     <Link to={`/salon/${item.id}`}>
                                         <div className="col-lg-3 new_q">
-                                            <img className="new_img" src={IMAGE_BASE_URL + item.images[0].id} alt=''/>
+                                            <img className="new_img" src={item.images.length>0?IMAGE_BASE_URL + item.images[0].id:IMAGE_BASE_URL +29} alt=''/>
                                         </div>
                                         <div className="col-lg-9 new_e">
 

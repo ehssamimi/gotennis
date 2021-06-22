@@ -8,7 +8,7 @@ export function UseSideAnimate() {
     const [state, setState] = useState(1);
 
     const ChangePage=( stat,mod )=>{
-        console.log('click')
+
         setMode(mod)
         setState( stat)
     }

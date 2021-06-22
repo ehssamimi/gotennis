@@ -26,8 +26,7 @@ const Index = () => {
 
     const getSans = (id=courtId,name=courtName.complex) => {
 
-console.log("****************sans************")
-        setCourtId(id);
+         setCourtId(id);
         setCourtName({...courtName,name})
         getSansApi(id).then(response => {
 

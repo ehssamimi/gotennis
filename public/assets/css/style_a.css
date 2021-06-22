@@ -13,6 +13,7 @@ body {
     padding-top: 5px;
     padding-bottom: 5px;
     height: 50px;
+    display: none;
 
 }
 
@@ -417,9 +418,9 @@ img {
 
 .slideIn{
     -webkit-animation-name: slideIn;
-    -webkit-animation-duration: 2s;
+    -webkit-animation-duration: 0.7s;
     animation-name: slideIn;
-    animation-duration: 2s;
+    animation-duration: 0.7s;
 }
 .fadeIn{
     -webkit-animation-name: fadeIn;
@@ -636,7 +637,8 @@ img {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    /*padding: 14px 16px;*/
+    padding: 6px 16px;
     transition: 0.3s;
     font-size: 17px;
     color: white;
@@ -1017,6 +1019,28 @@ q {
 }
 
 
+
+
+.slide-up-now {
+    -webkit-animation: slide-up .6s cubic-bezier(0.4, 0, 0.2, 1) 500ms backwards;
+    -moz-animation:slide-up .6s cubic-bezier(0.4, 0, 0.2, 1) 500ms backwards;
+    animation: slide-up .6s cubic-bezier(0.4, 0, 0.2, 1) 500ms backwards;
+}
+
+@-webkit-keyframes slide-up {
+    0% { -webkit-transform: translateY(100%); }
+    100% { -webkit-transform: translateY(0); }
+}
+
+
+
+
+
+
+
+
+
+
 /* Add Animation */
 @-webkit-keyframes slideIn {
     from {
@@ -1082,10 +1106,16 @@ q {
     .prev, .next, .text {
         font-size: 11px
     }
+    .top_header {
+        display: block;
+    }
 }
 
 
 @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+    .top_header {
+        display: block;
+    }
     .top_left {
 
         display: block;
@@ -1386,8 +1416,8 @@ q {
         border-radius: 50px;
         background-repeat: no-repeat;
         background-position: center;
-        padding-top: 35px;
-        padding-bottom: 35px;
+        padding-top: 20px;
+        padding-bottom: 20px;
         text-align: center;
         padding-right: 0;
         font-size: 12px;
@@ -1401,6 +1431,7 @@ q {
     }
 
     #profile_box {
+
         margin-top: -29%;
         margin-bottom: 0%;
     }
@@ -1677,6 +1708,11 @@ q {
 }.w-50{
     width: 50%;
 }
+ .w-33{
+     width: 33%;
+ }
+/******fade-Enter*****/
+
 .fadeEnter-enter .mainContent .btn{
     opacity: 0;
     transform: translateX(-100%);
@@ -1695,7 +1731,7 @@ q {
 }
 .fadeEnter-enter-active .mainContent,
 .fadeEnter-exit-active .mainContent {
-    transition: opacity 1ms, transform 1ms;
+    transition: opacity 500ms, transform 500ms;
 }
 
 
@@ -1956,4 +1992,20 @@ q {
     text-overflow: ellipsis;
     width: 91%;
     overflow: hidden;
+}
+
+.loader-style {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+}
+
+.ProfileStatisticList {
+    height: 66px;
+    background: white;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+
 }

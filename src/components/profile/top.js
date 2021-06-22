@@ -1,10 +1,16 @@
-import React from "react";
+import React   from "react";
 import {NumberSeparatorFunction} from "../../utils/HelperFunction";
+import CenterScreenModal from "../Common/Modal/CenterModal";
+import SlideAnimation from "./SLideAnimation/SlideAnimation";
 
 const Top = ({user}) => {
 
+
     const modal = () => {
+
         document.getElementById('myModal').style.display = 'block';
+        // document.getElementById('modalCenterOpen2').style.display = 'block';
+        // document.getElementById('modalCenterOpen2').click();
     }
 
     return (
@@ -18,7 +24,7 @@ const Top = ({user}) => {
                     </div>
                     <div className="col-lg-6 profile_left">
                         <div className="profile_w">
-                            <button id="myBtn" onClick={() => modal()}
+                            <button id="myBtn" onClick={modal}
                                     style={{background: "none", border: "none"}}>ویرایش پروفایل
                             </button>
                             <i className="fa fa-user"/>
@@ -33,6 +39,8 @@ const Top = ({user}) => {
                 </div>
             </div>
             <br/>
+
+
         </div>
     );
 }
