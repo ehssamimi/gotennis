@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import {getComplexes, getCourts} from "../../api";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Swiper from 'react-id-swiper';
 import "swiper/css/swiper.css";
 import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
@@ -18,16 +18,23 @@ const TopProfile = props => {
 
     const {EditUser}=UseProfile();
     let [complex, setComplex] = useState({});
+    let [complexList, setcomplexList] = useState({});
 
     let [courts, setCourts] = useState([]);
 
     const param = useParams();
 
     useEffect(() => {
+        props.LoadingFunc(true)
 
         getComplexes().then(response => {
 
             response = response.data.data.data;
+            console.log(param.id)
+            console.log(Number(param.id)===2)
+           let newArray= response.map(obj=> ({ ...obj, isSelected:Number(param.id)===obj.id   }))
+            console.log(newArray)
+            setcomplexList(newArray)
 
             response = response.filter(res => res.id == param.id);
 
@@ -41,7 +48,7 @@ const TopProfile = props => {
         getCourts(param.id).then(response => {
 
             response = response.data.data.data;
-             // console.log(response)
+
             // response.map(item=> {return {...item," selectedselected":true}   )
             // arr.map((item,index) => ({ ...item, selected:true }));
 
@@ -52,15 +59,17 @@ const TopProfile = props => {
                 arr.push(row)
             })
 
+
             setCourts(arr);
             props.getSans(response[0].id,response[0].name,complex.name );
 
 
         }).catch(error => error);
-
+        // props.LoadingFunc(false)
     }, [param.id]);
 
     const parentDataHandler = (e, court_id) => {
+
         props.getSans(court_id);
         props.getCourtName(e.target.innerText, complex.name);
        let indexCourt= getIndexIfObjWithAttr(courts,'id',court_id)
@@ -80,7 +89,12 @@ const TopProfile = props => {
         console.log(arr)
 
     }
-
+    const selectCourt=(id)=>{
+        // complexList.map(obj=> ({ ...obj, isSelected: obj.id ===id }))
+        // console.log(complexList)
+        // setComplex(complexList)
+    }
+        console.log(courts)
 
     return (
         <div className="top_profile">
@@ -92,9 +106,14 @@ const TopProfile = props => {
                         </div>
                     </div>
                     <div className="col-sm-10">
-                    <span className="salon_btn salon_btn_selected">
-                        {complex.name}
-                    </span>
+                        {
+                            complexList.length>0?complexList.map(item =>
+                                <Link to={`/salon/${item.id}`} className={["salon_btn ",item.isSelected?' salon_btn_selected':' salon_btn_unselected'].join(' ')}   key={item.id}>
+                                   {item.name}
+                                </Link>
+                             ):""
+                        }
+
                     </div>
                 </div>
 
@@ -121,7 +140,14 @@ const TopProfile = props => {
 
 
                                     }
-                                </Swiper>:""
+                                </Swiper>:  courts.length>0?
+
+                                    <span className={["salon_btn ",courts[0].selected?' salon_btn_selected':' salon_btn_unselected'].join(' ')}
+                                                                  style={{marginTop: '3px', cursor: 'pointer'}}
+                                                                  key={ courts[0].id}
+                                                                  onClick={(e) => parentDataHandler(e, courts[0].id,)}>
+                                          { courts[0].name}
+                                       </span>:""
 
                             }
 

@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Provider from "./utils/Provider";
-
+import swDev from "./swDev";
+import { HashRouter } from 'react-router-dom'
 ReactDOM.render(
     <React.StrictMode>
         <Provider>
+            <HashRouter>
             <App/>
+            </HashRouter>
         </Provider>
 
     </React.StrictMode>,
@@ -18,3 +21,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+swDev();

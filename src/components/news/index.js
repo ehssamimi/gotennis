@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getNews} from "../../api";
 import ListResponseHandler from "../../utils/AxiosResponse/Success/ListResponseHandler";
 import moment from 'jalali-moment';
 import {Link} from "react-router-dom";
 import {IMAGE_BASE_URL} from "../../utils/Config";
 import MainDiv from "../Common/MainDiv/MainDiv";
+import TotalLoader from "../Common/IsLoader/LoaderTotal/TotalLoader";
 
 const Index = ({className,home}) => {
 
@@ -23,6 +24,9 @@ const Index = ({className,home}) => {
     return (
         <>
 
+
+
+
         {home?
 
         <>
@@ -36,7 +40,7 @@ const Index = ({className,home}) => {
                                     <Link to={`/news/${item.id}`} key={item.id}>
                                         <div className="row" style={{marginTop:'10px'}}>
                                             <div className="col-lg-3 new_q">
-                                                <img className="new_img" src={`${IMAGE_BASE_URL}${item.image_id}`}
+                                                <img className="new_img object-fit-cover" src={`${IMAGE_BASE_URL}${item.image_id}`}
                                                      alt="" width='91' height='79'/>
                                                 <div>
                                                     {moment(item.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
@@ -58,6 +62,7 @@ const Index = ({className,home}) => {
 
         </>
                 :
+            <TotalLoader isLoading={data.loading}>
                 <MainDiv>
                     <div className={className ? className : 'new_p'}>
                         <div className="container">
@@ -68,7 +73,7 @@ const Index = ({className,home}) => {
                                             <Link to={`/news/${item.id}`} key={item.id}>
                                                 <div className="row" style={{marginTop:'10px'}}>
                                                     <div className="col-lg-3 new_q">
-                                                        <img className="new_img" src={`${IMAGE_BASE_URL}${item.image_id}`}
+                                                        <img className="new_img object-fit-cover " src={`${IMAGE_BASE_URL}${item.image_id}`}
                                                              alt="" width='91' height='79'/>
                                                         <div>
                                                             {moment(item.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
@@ -88,6 +93,8 @@ const Index = ({className,home}) => {
                         </div>
                     </div>
                 </MainDiv>
+            </TotalLoader>
+
 
         }
 

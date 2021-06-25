@@ -133,6 +133,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
 
 
                     }else {
+
                         gotennisNotif(4,message)
                     }
 

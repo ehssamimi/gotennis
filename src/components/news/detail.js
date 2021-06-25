@@ -1,27 +1,34 @@
-import {getNews} from "../../api";
-import {useState, useEffect} from "react";
+import {getNews, showError} from "../../api";
+import React, {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import moment from "jalali-moment";
 import {IMAGE_BASE_URL} from "../../utils/Config";
 import MainDiv from "../Common/MainDiv/MainDiv";
+import TotalLoader from "../Common/IsLoader/LoaderTotal/TotalLoader";
 
 const Detail = () => {
 
     const [data, setData] = useState({});
+    const [isLoading, setisLoading] = useState(true);
 
     const param = useParams();
 
     useEffect(() => {
         getNews().then(response => {
+            setisLoading(false)
             console.log( response.data.data.data)
             response = response.data.data.data;
             response = response.filter(item => item.id == param.id);
             setData(...response);
         })
-            .catch(error => error);
+            .catch(error =>{
+                showError(error);
+                setisLoading(false)
+            });
     }, [param]);
     return (
         <MainDiv backUrl={'/news'} header={ data.title}>
+            <TotalLoader isLoading={isLoading}>
             {
                 (data && data.id) ?
 
@@ -50,12 +57,15 @@ const Detail = () => {
                             </div>
                         </div>
                     </>
-                    : <div>
-                        <h4 className="text-danger text-center">خبر یافت نشد</h4>
-                    </div>
+                    :
+                        isLoading?"":
+                            <div>
+                                <h4 className="text-danger text-center">خبر یافت نشد</h4>
+                            </div>
+
             }
 
-
+            </TotalLoader>
         </MainDiv>
 
     )

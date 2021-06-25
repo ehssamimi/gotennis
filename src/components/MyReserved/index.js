@@ -19,10 +19,10 @@ const EachReserved=({item})=>{
     return(
 
         <Link to={`/my-reserve/reserve/${item.id}`} className=' w-100 col-container mb-2' dir='rtl'>
-            <div className="col-lg-3 new_q col-item mb-0">
+            <div className="  new_q col-item mb-0">
                 <img className="new_img" src={item.court_image!==null && item.court_image!==""?item.court_image:"https://panel.gotennis.ir/loadImage/46" } alt=''/>
             </div>
-            <div className="col-lg-9 new_e col-item ">
+            <div className="pr-3 new_e col-item ">
                 <div className='w-100 h-100 d-flex justify-content-around flex-column'>
 
                         <p className='text-right Fs-14 text-BostonBlue mb-0' dir='rtl' > {item.sans.court.complex.name}</p>

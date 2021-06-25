@@ -13,6 +13,7 @@ const Index = ( props ) => {
     const {User,initialUser} = UseProfile( );
     const { Modal,toggleModal}=UseModals();
 
+
     useEffect(() => {
 
         // console.log(history.location.pathname)
@@ -23,7 +24,8 @@ const Index = ( props ) => {
     }, []);
     const logOut=()=>{
         initialUser()
-        window.location.reload()
+        // window.location.reload()
+        history.push('/')
     }
 
     return (

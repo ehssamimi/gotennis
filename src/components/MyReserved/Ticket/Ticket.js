@@ -11,8 +11,8 @@ const RowInfo=({label,value,MainClass})=>{
 const Ticket = ({MainContainer,SubContainer,header,img,trace_code}) => {
 
     return (
-        <div className='w-100 d-flex justify-content-center vh-100 overflow-y-scroll' style={{paddingBottom:'60px'}}>
-            <div id='ticket' className='w-85 bg-white mt-4 d-flex flex-column vh-100' style={{minHeight:'70vh'}}>
+        <div className='w-100 d-flex justify-content-center h-100  overflow-y-scroll' style={{paddingBottom:'60px',minHeight:'87vh'}}>
+            <div id='ticket' className='w-85 bg-white mt-4 d-flex flex-column  '  >
                 <div className='w-100 bg-white position-relative' style={{height:'45px'}}>
                     <p className='Fs-14 text-MountainMeadow text-right pr-3 pt-2 font-weight-bold'>{header}</p>
                     <span className='ticket-circle' style={{left:'-15px',top:'-15px'}}></span>

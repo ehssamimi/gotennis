@@ -25,7 +25,7 @@ const Index = () => {
 
 
     const getSans = (id=courtId,name=courtName.complex) => {
-
+        setisLoading(true)
          setCourtId(id);
         setCourtName({...courtName,name})
         getSansApi(id).then(response => {
@@ -59,27 +59,33 @@ const Index = () => {
 
 
 
-            <TopProfile getSans={getSans} getCourtName={getCourtName}/>
+            <TopProfile getSans={getSans} getCourtName={getCourtName} LoadingFunc={LoadingFunc}/>
 
-            <div className="container" style={{margin: '15px', marginTop: '-5px'}}>
-                <div className="row" id="salon_det">
+            <div className="container d-flex justify-content-center  " style={{  marginTop: '-5px'}}>
+                <div className="row w-100" id="salon_det">
                     <div className="col-lg-4" style={{textAlign: "center"}}>
                         <img className="salon_img" src="/assets/img/s4.png" alt=''/>
                     </div>
-                    <div className="col-lg-4">
-                        <div className="salon_text"> {courtName.name}</div>
-                        <br/>
-                        <div className="salon_text1">اولین زمان رزرو</div>
-                        <div className="salon_tt">
-                            {sans.first_sans && moment(sans.first_sans.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
-                        </div>
-                    </div>
-                    <div className="col-lg-4">
-                        <div style={{textAlign: "center", color: "#2d9467", marginTop: "5%"}}>
-                            {sans.available_sans}
+                    <div className="col-lg-4 h-100 d-flex align-items-center   justify-content-center">
+                        <div>
+                            <div className="salon_text text-center"> {courtName.name}</div>
                             <br/>
-                            سانس های آزاد
+                            <div className="salon_text1 text-center ">اولین زمان رزرو</div>
+                            <div className="salon_tt text-center ">
+                                {sans.first_sans && moment(sans.first_sans.created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
+                            </div>
                         </div>
+
+                    </div>
+                    <div className="col-lg-4 h-100 d-flex align-items-center pl-0 justify-content-center">
+                        <div>
+                            <div className='Fs-12' style={{textAlign: "center", color: "#2d9467", marginTop: "5%"}}>
+                                {sans.available_sans}
+                                <br/>
+                                سانس های آزاد
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

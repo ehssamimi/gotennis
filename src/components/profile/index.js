@@ -26,7 +26,10 @@ const Index = () => {
         push_id: '4',
         device_id: '2g',
         imei: '1w',
-        mac_address:'3r'
+        mac_address:'3r',
+        total_reserves:"",
+        total_play_time:"",
+        active_reserves:"",balance:""
 
     });
 
@@ -53,6 +56,8 @@ const Index = () => {
 
 
                 if (response.birthday!==null){
+                    console.log('response.balance')
+                    console.log(response.balance)
                     // let birthday="3-6-1367"
                     // console.log(response.birthday.split("-"))
                     let userirthday = {
@@ -72,6 +77,10 @@ const Index = () => {
                         gender:response.gender,
                         name:response.name,
                         username:response.name,
+                        balance:response.balance,
+                        total_reserves:response.total_reserves,
+                        total_play_time:response.total_play_time,
+                        active_reserves:response.active_reserves
 
                     }));
                 }else {
@@ -80,6 +89,10 @@ const Index = () => {
                         profile_preview:response.profile_pic!==null?response.profile_pic: "/assets/img/avatar-380-456332.png",
                         profile_pic:null,
                         mobile:response.mobile,
+                        balance:response.balance,
+                        total_reserves:response.total_reserves,
+                        total_play_time:response.total_play_time,
+                        active_reserves:response.active_reserves
                     }));
                 }
 

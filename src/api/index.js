@@ -21,7 +21,7 @@ const preOrderClass = ( class_id) => Axios2.post(`/class/${class_id}/pre-order`,
 const getCourts = async complex_id => Axios2(`/courts?complex_id=${complex_id}`) ;
 
 const myReserved = () => Axios2('/reserve');
-const myClass = () => Axios2('/class/my_reserves');
+const myClass = () => Axios2('/classes/my_reserves');
 
 const getSuccess = (id) => Axios2(`/credits/${id}`);
 

@@ -13,6 +13,7 @@ const Top = ({user}) => {
         // document.getElementById('modalCenterOpen2').click();
     }
 
+
     return (
         <div className="top_profile">
             <div className="container">
@@ -30,8 +31,8 @@ const Top = ({user}) => {
                             <i className="fa fa-user"/>
                         </div>
 
-                        <span className="profile_r">{user.balance?NumberSeparatorFunction(user.balance):""} تومان</span>
-                        <div className="profile_q">
+                        <span className="profile_r">{user.balance!==""?NumberSeparatorFunction(user.balance):""} تومان</span>
+                         <div className="profile_q">
                             <span>افزایش موجودی</span>
                             <i className="fa fa-dollar"/>
                         </div>

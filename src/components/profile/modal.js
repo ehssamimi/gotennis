@@ -851,15 +851,17 @@ export const PhoneValidate = (props) => {
     let { mode,state,ChangePage}= UseSideAnimate()
     const resetStats =(e,type=1)=>{
         setIsloading(false)
-        console.log("type" )
-        console.log(type )
+        setphone("")
+        setcode("")
+        console.log("resetStats" )
+
         if (type===1){
             console.log("type1")
             // document.getElementById('close').click()
             props.toggle()
         }else {
-            setphone("")
-            setcode("")
+            console.log("resetStats type 2 " )
+
             ChangePage( 1,'fadeEnter')
 
             // props.toggle()
@@ -887,15 +889,16 @@ export const PhoneValidate = (props) => {
                 setIsloading(false)
                 }
             ).catch(error => {
+                console.log("eeeeror")
                 showError(error)
-                props.toggle()
+                resetStats();
                 setIsloading(false)
                 // document.getElementById('myModal').style.display = 'none'
             });
         }
 
     }
-    const submitcode=async ()=>{
+    const submitcode=async (e)=>{
         setIsloading(true)
         await verifyMobile(code,phone).then  ( async response => {
                 console.log(response)
@@ -905,7 +908,8 @@ export const PhoneValidate = (props) => {
                 let Token='Bearer'+' '+response.data.data.access_token
                 await EditUser(Token,'token')
                 if (  response.data.data.profile_pic!==null){
-                    await EditUser( response.data.data.profile_pic,'img')
+                    // await EditUser( 'https://panel.gotennis.ir/profilePic/'+response.data.data.profile_pic,'img')
+                    await EditUser(  response.data.data.profile_pic.length>8?response.data.data.profile_pic :'/assets/img/avatar-380-456332.png','img')
                 }  if (  response.data.data.name!==null && response.data.data.name!=="")  {
                     userName=response.data.data.name
                     await EditUser( response.data.data.name,'name')
@@ -914,7 +918,7 @@ export const PhoneValidate = (props) => {
                 await EditUser(true,'phoneValidate')
                 await EditUser(response.data.data.mobile,'phoneNumber')
 
-                resetStats();
+                resetStats(e,2);
                 gotennisNotif(4,'خوش آمدید '+userName)
 
                 if (response.data.data.birthday===null){
@@ -923,7 +927,7 @@ export const PhoneValidate = (props) => {
 
             }else {
                 gotennisNotif(4,response.data.message )
-                resetStats();
+                resetStats(e,2);
             }
 
 
@@ -933,7 +937,8 @@ export const PhoneValidate = (props) => {
                 // document.getElementById('exampleModalCenter').style.display = 'none'
             }
         ).catch(error => {
-            showError(error) ;   props.toggle();
+            showError(error) ;
+            resetStats(e,2);
             setIsloading(false)
         });
 

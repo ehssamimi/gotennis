@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 const Index = () => {
     return (
-        <div className="footer">
+        <div className="footer  container        ">
             <div style={{overflow: "auto"}}>
                 <div className="row" style={{paddingTop: "6px", width: "100%", overflow: "hidden", height: "50px"}}>
                     <div className="col-sm-2 footer_b">
