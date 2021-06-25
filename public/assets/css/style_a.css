@@ -321,7 +321,8 @@ img {
 
 .profile_right img {
     background: #d8d6d9;
-    width: 26%;
+    width: 8vw;
+    height: 8vw;
     border: 4px solid #c2ee37;
     border-radius: 50%;
     padding: 10;
@@ -592,7 +593,7 @@ img {
     color: white;
 }
 
-#myModal >.modal-img {
+#myModal  .modal-img {
     background: #d8d6d9;
     width: 8%;
     border: 4px solid #b2b2b1;
@@ -793,7 +794,8 @@ img {
 .salon-p {
     text-align: center;
     direction: rtl;
-    margin-top: 7%;
+    /*margin-top: 7%;*/
+    margin-top:2%;
     font-size: 14px;
     font-weight: bold;
 }
@@ -831,8 +833,8 @@ img {
 /* Slides */
 .mySlide {
     display: none;
-    padding: 80px;
-    padding-top: 20px;
+    /*padding: 80px;*/
+    /*padding-top: 20px;*/
     text-align: center;
 }
 
@@ -1118,6 +1120,21 @@ q {
     }
 }
 
+
+.slideshow-container-mb{
+    margin-bottom: 0;
+}
+
+
+.ProfileStatisticList {
+    height: 108px;
+    background: white;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+
+}
+
+
 /* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
     .prev, .next, .text {
@@ -1126,10 +1143,32 @@ q {
     .top_header {
         display: block;
     }
+    .ProfileStatisticList {
+        height: 66px;
+        background: white;
+        border-top-left-radius: 100px;
+        border-bottom-left-radius: 100px;
+
+    }
 }
 
 
+
+
+
 @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+    .ProfileStatisticList {
+        height: 66px;
+        background: white;
+        border-top-left-radius: 100px;
+        border-bottom-left-radius: 100px;
+
+    }
+
+    .slideshow-container-mb{
+        margin-bottom: 144px !important;
+    }
+
     .top_header {
         display: block;
     }
@@ -1460,7 +1499,17 @@ q {
         font-weight: bold;
     }
 
-    .modal-img {
+    #myModal  .modal-img {
+        background: #d8d6d9;
+        width: 80px;
+        border: 4px solid #b2b2b1;
+        border-radius: 50px;
+        padding: 10;
+        margin-left: 40%;
+        margin-top: -14%;
+        height: 80px;
+        object-fit: cover;
+    }    .modal-img {
         background: #d8d6d9;
         width: 80px;
         border: 4px solid #b2b2b1;
@@ -2019,10 +2068,7 @@ q {
     margin-left: -50px;
 }
 
-.ProfileStatisticList {
-    height: 66px;
-    background: white;
-    border-top-left-radius: 100px;
-    border-bottom-left-radius: 100px;
 
+.text-center {
+    text-align: center!important;
 }

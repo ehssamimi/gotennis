@@ -63,7 +63,7 @@ const Index = () => {
 
             <div className="container d-flex justify-content-center  " style={{  marginTop: '-5px'}}>
                 <div className="row w-100" id="salon_det">
-                    <div className="col-lg-4" style={{textAlign: "center"}}>
+                    <div className="col-lg-4" style={{textAlign: "end"}}>
                         <img className="salon_img" src="/assets/img/s4.png" alt=''/>
                     </div>
                     <div className="col-lg-4 h-100 d-flex align-items-center   justify-content-center">

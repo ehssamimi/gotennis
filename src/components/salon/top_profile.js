@@ -99,13 +99,14 @@ const TopProfile = props => {
     return (
         <div className="top_profile">
             <div className="container">
-                <div className="row" style={{marginTop: "2%"}}>
-                    <div className="col-sm-2">
+                <div className="row d-flex w-100" style={{marginTop: "2%",justifyContent:'end',marginRight:0,marginLeft:0 , flexDirection:"row-reverse"}}>
+
+                    <div className=" ">
                         <div className="salon_t" style={{marginTop: "1%"}}>
                             مجموعه:
                         </div>
                     </div>
-                    <div className="col-sm-10">
+                    <div className="col-sm-11 p-0  ">
                         {
                             complexList.length>0?complexList.map(item =>
                                 <Link to={`/salon/${item.id}`} className={["salon_btn ",item.isSelected?' salon_btn_selected':' salon_btn_unselected'].join(' ')}   key={item.id}>
@@ -115,6 +116,7 @@ const TopProfile = props => {
                         }
 
                     </div>
+
                 </div>
 
                 <div className="row align-items-center" style={{marginTop: "3%", marginBottom: "7%"}}>

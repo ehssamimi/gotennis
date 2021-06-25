@@ -211,7 +211,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
 // console.log('***************sans**********')
 // console.log(sans)
     return (
-        <div className="slideshow-container" style={{borderRadius: '20px 20px 0 0',marginBottom:'144px'}}>
+        <div className="slideshow-container slideshow-container-mb" style={{borderRadius: '20px 20px 0 0' }}>
 
             {
                 sansList.length > 0 && sansList.map((item, key) => {

@@ -917,6 +917,9 @@ export const PhoneValidate = (props) => {
 
                 await EditUser(true,'phoneValidate')
                 await EditUser(response.data.data.mobile,'phoneNumber')
+                if (response.data.data.balance){
+                    await EditUser(response.data.data.balance,'wallet')
+                }
 
                 resetStats(e,2);
                 gotennisNotif(4,'خوش آمدید '+userName)
