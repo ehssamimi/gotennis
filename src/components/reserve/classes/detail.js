@@ -3,11 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {ErrorResp, getClass, preOrderClass} from "../../../api";
 import NumberSeparator from "../../../utils/NumberSeparator";
 import MainDiv from "../../Common/MainDiv/MainDiv";
-import {PreFactor, SelectPay} from "../../profile/modal";
+import {Modal as ModalComponent, PhoneValidate, PreFactor, SelectPay} from "../../profile/modal";
 import {NumberSeparatorFunction} from "../../../utils/HelperFunction";
 import {gotennisNotif} from "../../../utils/Notification";
 import TotalLoader from "../../Common/IsLoader/LoaderTotal/TotalLoader";
 import {UseProfile} from "../../../Hooks/UseProfile/UseProfile";
+import {UseModals} from "../../../Hooks/UseModals/UseModals";
 
 const Detail = () => {
 
@@ -15,29 +16,49 @@ const Detail = () => {
     const {User}=UseProfile();
     const [preOrderList, setpreOrderList] = useState({});
     const [isLoading, setisLoading] = useState(true);
-
+    const { Modal,toggleModal}=UseModals();
     const param = useParams();
 
     useEffect(() => {
         setisLoading(true)
-        getClass(param.id).then(response => {
+        GetClassInfo()
+
+    }, [param]);
+
+    const GetClassInfo=async ()=>{
+       await getClass(param.id).then(response => {
 
             console.log(response.data.data)
             response = response.data.data;
             setData(response);
             setisLoading(false)
-        })
-            .catch(error => {
-              let{data: {code , data , message }}= ErrorResp(error)
-                console.log(error)
-                gotennisNotif(4,message)
+        }).catch(error => {
+            let{data: {code , data , message }}= ErrorResp(error)
+            console.log(error)
+            gotennisNotif(4,message)
 
 
-            });
-
-    }, [param]);
+        });
+    }
     const goFactor=()=>{
-        document.getElementById('PreFactor').style.display = 'block'
+        let Profile='';
+        if (localStorage.getItem("GoTennisInfo")){
+            Profile=JSON.parse(localStorage.getItem("GoTennisInfo"))
+        }else {
+            Profile=User
+        }
+        if (Profile.phoneValidate && Profile.name!== 'کاربر'){
+            document.getElementById('PreFactor').style.display = 'block'
+        }else {
+            console.log(User.phoneValidate)
+            console.log(Profile.phoneValidate)
+            if (Profile.phoneValidate){
+                document.getElementById('myModal').style.display = 'block';
+            }else {
+                toggleModal("profile")
+            }
+        }
+
     }
 
     const goPay= async ()=>{
@@ -52,7 +73,6 @@ const Detail = () => {
             gotennisNotif(4,message)
         }
     }
-    console.log(data)
 
     return (
         <MainDiv  backUrl={'/reserve'} header={ 'کلاس'}>
@@ -146,7 +166,10 @@ const Detail = () => {
             </TotalLoader>
 
             <PreFactor data={{name:data.title,price:Number(data.cost)}} goPay={goPay}/>
-            <SelectPay wallet={User.wallet} total= { NumberSeparatorFunction(Number(data.cost) )+' '+'تومان' } notMenu={true} preOrderList={preOrderList}/>
+            <SelectPay wallet={User.wallet} total= { NumberSeparatorFunction(Number(data.cost) )+' '+'تومان' } notMenu={true} preOrderList={preOrderList} getSans={GetClassInfo} SetyLoading={()=>{console.log(' ')}}/>
+            <PhoneValidate isOpen={Modal.isOpen} toggle={()=>{toggleModal("profile")}}  finishRequest={()=>{ window.location.reload()} }/>
+            <ModalComponent/>
+
         </MainDiv>
     )
 }

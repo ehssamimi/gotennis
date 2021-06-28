@@ -7,27 +7,32 @@ import moment from "jalali-moment";
   import {Modal} from "../profile/modal";
 import MainDiv from "../Common/MainDiv/MainDiv";
 import TotalLoader from "../Common/IsLoader/LoaderTotal/TotalLoader";
+import {IMAGE_BASE_URL} from "../../utils/Config";
 
 const Index = () => {
 
     let [sans, setSans] = useState({});
 
-    let [courtName, setCourtName] = useState({name:null,complex:null});
+    let [courtName, setCourtName] = useState({name:null,complex:null,complexImg:'/assets/img/s4.png'});
 
     let [courtId, setCourtId] = useState(null);
 
     let [reservedata, setReservedata] = useState( []);
     let [count, setcount] = useState(false);
     let [isLoading, setisLoading] = useState(true);
+    let [LoadingOutSide, setLoadingOutSide] = useState(1);
 
 
 
 
 
-    const getSans = (id=courtId,name=courtName.complex) => {
+    const getSans = (id=courtId,name=courtName.complex,complexImg) => {
         setisLoading(true)
          setCourtId(id);
-        setCourtName({...courtName,name})
+
+        console.log('**************complexImg**********')
+        console.log(complexImg)
+        setCourtName({...courtName,name,complexImg})
         getSansApi(id).then(response => {
 
             console.log(response.data.data)
@@ -39,8 +44,9 @@ const Index = () => {
     }
 
     const getCourtName = (name,complex) => {
-
-        setCourtName({name:name,complex:complex})};
+        setCourtName({...courtName, name: name, complex: complex})
+        // setCourtName({name:name,complex:complex });
+    }
     const updateReservedList = reserved =>{
 
         setReservedata(reserved);
@@ -52,6 +58,8 @@ const Index = () => {
         setisLoading(loader)
     }
 
+console.log('*********LoadingOutSide***')
+console.log(LoadingOutSide)
 
     return (
 
@@ -64,7 +72,8 @@ const Index = () => {
             <div className="container d-flex justify-content-center  " style={{  marginTop: '-5px'}}>
                 <div className="row w-100" id="salon_det">
                     <div className="col-lg-4" style={{textAlign: "end"}}>
-                        <img className="salon_img" src="/assets/img/s4.png" alt=''/>
+                        {/*<img className="salon_img" src={courtName.complex!==null?courtName.complex.images.length>0?IMAGE_BASE_URL + courtName.complex.images[0].id:IMAGE_BASE_URL +29:'/assets/img/s4.png'} alt=''/>*/}
+                        <img className="salon_img" src={courtName.complexImg} alt=''/>
                     </div>
                     <div className="col-lg-4 h-100 d-flex align-items-center   justify-content-center">
                         <div>
@@ -129,9 +138,9 @@ const Index = () => {
                 <p className="salon-p">رنگ صورتی مربوط به سانس بانوان و رنگ آبی مربوط به سانس آقایان می باشد.</p>
             </div>
 
-            <SlideShow court_id={courtId}  updateReservedList={updateReservedList} charts={sans.weeks} courtName={courtName}  LoadingFunc={LoadingFunc}/>
+            <SlideShow court_id={courtId}  updateReservedList={updateReservedList} LoadingOutSide={LoadingOutSide} courtName={courtName}  LoadingFunc={LoadingFunc} getSans={getSans}/>
 
-            <Reserve data={reservedata} LoadingFunc={LoadingFunc} getSans={getSans} />
+            <Reserve data={reservedata} LoadingFunc={LoadingFunc} getSans={getSans}  SetyLoading={()=>{setLoadingOutSide(prevState =>prevState+1)}}/>
 
             <Modal  />
 

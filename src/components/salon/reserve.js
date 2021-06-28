@@ -10,7 +10,7 @@ import {gotennisNotif} from "../../utils/Notification";
 import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
 
 
-const Reserve = ({data,LoadingFunc,getSans}) => {
+const Reserve = ({data,LoadingFunc,getSans ,SetyLoading}) => {
     const {User}=UseProfile();
     let [isOpen, setisOpen] = useState(false);
     let [preOrderList, setpreOrderList] = useState({});
@@ -156,7 +156,7 @@ const Reserve = ({data,LoadingFunc,getSans}) => {
             <FullScreenModal isOpen={isOpen} toggle={()=>{setisOpen(!isOpen)}}>
             <Factor data={data} SumPrice={SumPrice} goPayType={goPayType}   />
             </FullScreenModal>
-            <SelectPay wallet={User.wallet} total= { NumberSeparatorFunction(SumPrice(data))+' '+'تومان'  } preOrderList={preOrderList} getSans={getSans}/>
+            <SelectPay wallet={User.wallet} total= { NumberSeparatorFunction(SumPrice(data))+' '+'تومان'  } preOrderList={preOrderList} getSans={getSans} SetyLoading={SetyLoading}/>
         </div>
     )
 

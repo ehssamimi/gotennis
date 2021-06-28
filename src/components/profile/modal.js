@@ -652,7 +652,7 @@ export const ValidateCode = (props) => {
     );
 };
 
-export const SelectPay = ({wallet ,total , notMenu,preOrderList,getSans}) => {
+export const SelectPay = ({wallet ,total , notMenu,preOrderList,getSans,SetyLoading}) => {
 
      let [walletCount, setwallet] = useState( 0)
     let [payType, setpayType] = useState( null)
@@ -674,18 +674,21 @@ export const SelectPay = ({wallet ,total , notMenu,preOrderList,getSans}) => {
 
             }else {
                 let {data: {code , data , message }}= await paymentRequest( payType,preOrderList.credit_id,'0')
-                // console.log(code , data , message)
-                closeModal()
+                console.log(code , data , message)
+                setpayType(null)
+
                 if (code===200){
-                    gotennisNotif(4,message)
+                    gotennisNotif(4,'رزرو شما با موفقیت ثبت شد ')
 
                 }else {
                     gotennisNotif(4,message)
                 }
+
             if (getSans!==undefined){
                 getSans()
+                SetyLoading()
             }
-
+                document.getElementById('payModal').style.display = 'none'
             }
 
 
@@ -696,8 +699,15 @@ export const SelectPay = ({wallet ,total , notMenu,preOrderList,getSans}) => {
 
 
     const closeModal = (e) => {
-        if (e.target !== e.currentTarget) return true
-        else document.getElementById('payModal').style.display = 'none'
+        //
+        if (e.target !== e.currentTarget) {
+            return true
+        } else{
+            document.getElementById('payModal').style.display = 'none'; setpayType(null)
+        }
+    }
+    const SetType =(type)=>{
+         setpayType(type)
     }
 
 
@@ -708,11 +718,11 @@ export const SelectPay = ({wallet ,total , notMenu,preOrderList,getSans}) => {
 
                 <div className="position-relative">
                     <p className='text-right Fs-14 text-GrayAsparagus pr-3 pl-3 pt-16 font-weight-bold '>انتخاب روش پرداخت </p>
-                    <p  className='text-right Fs-14 text-GrayAsparagus pr-3 pl-3 font-weight-bold' >موجودی کیف پوش شما : {NumberSeparatorFunction(walletCount)} تومان </p>
+                    <p  className='text-right Fs-14 text-GrayAsparagus pr-3 pl-3 font-weight-bold' >موجودی کیف پول شما : {NumberSeparatorFunction(walletCount)} تومان </p>
                     <p className='border-bottom w-100'></p>
                     <div className='d-flex justify-content-between pr-3 pl-3'>
-                        <span className={['flex-center text-GrayAsparagus p-3  br-15px position-relative',payType===1?"borer-MountainMeadow":"borer-Silver "].join(" ")} onClick={()=>{setpayType(1)}}>
-                               <span className={[ 'position-absolute',payType===1?"d-block":"d-none "].join(" ")} style={{top:0,left:10}}><i className="fa fa-check text-MountainMeadow" aria-hidden="true"></i></span>
+                        <span className={['flex-center text-GrayAsparagus p-3  br-15px position-relative ',payType===1?" borer-MountainMeadow ":" borer-Silver "].join(" ")} onClick={()=>{SetType(1)}}>
+                               <span className={[ 'position-absolute ',payType===1?" d-block ":" d-none "].join(" ")} style={{top:0,left:10}}><i className="fa fa-check text-MountainMeadow" aria-hidden="true"></i></span>
 
                               <span> اعتبار کیف پول</span>
 
@@ -720,8 +730,8 @@ export const SelectPay = ({wallet ,total , notMenu,preOrderList,getSans}) => {
                         </span>
 
 
-                        <span className={['flex-center text-GrayAsparagus p-3 br-15px position-relative ',payType===2?"borer-MountainMeadow":"borer-Silver "].join(" ")}  onClick={()=>{setpayType(2)}}>
-                           <span className={[ 'position-absolute',payType===2?"d-block":"d-none "].join(" ")} style={{top:0,left:10}}><i className="fa fa-check text-MountainMeadow" aria-hidden="true"></i></span>
+                        <span className={['flex-center text-GrayAsparagus p-3 br-15px position-relative ',payType===2?" borer-MountainMeadow ":" borer-Silver "].join(" ")}  onClick={()=>{SetType(2)}}>
+                           <span className={[ 'position-absolute ',payType===2?" d-block ":" d-none "].join(" ")} style={{top:0,left:10}}><i className="fa fa-check text-MountainMeadow" aria-hidden="true"></i></span>
                             <span>پرداخت اینترنتی</span>
                             <img  src="/assets/img/shetab.png" alt='wallet' className='ml-2'/>
                         </span>

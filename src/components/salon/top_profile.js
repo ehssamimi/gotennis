@@ -5,12 +5,21 @@ import Swiper from 'react-id-swiper';
 import "swiper/css/swiper.css";
 import {UseProfile} from "../../Hooks/UseProfile/UseProfile";
 import {getIndexIfObjWithAttr} from "../../utils/HelperFunction";
+import {IMAGE_BASE_URL} from "../../utils/Config";
 
 const TopProfile = props => {
     const params = {
         initialSlide: 0,
         spaceBetween: 8,
         slidesPerView:3.4,
+        loop: false,
+        autoplay: false,
+        // rtl: "ltr",
+    };
+    const params2 = {
+        initialSlide: 0,
+        spaceBetween: 8,
+        slidesPerView:2.3,
         loop: false,
         autoplay: false,
         // rtl: "ltr",
@@ -61,7 +70,7 @@ const TopProfile = props => {
 
 
             setCourts(arr);
-            props.getSans(response[0].id,response[0].name,complex.name );
+            props.getSans(response[0].id,response[0].name,response[0].images.length>0?IMAGE_BASE_URL + response[0].images[0].id:IMAGE_BASE_URL +29 );
 
 
         }).catch(error => error);
@@ -70,7 +79,7 @@ const TopProfile = props => {
 
     const parentDataHandler = (e, court_id) => {
 
-        props.getSans(court_id);
+        props.getSans(court_id,complex.name,complex.images.length>0?IMAGE_BASE_URL + complex.images[0].id:IMAGE_BASE_URL +29);
         props.getCourtName(e.target.innerText, complex.name);
        let indexCourt= getIndexIfObjWithAttr(courts,'id',court_id)
         console.log(indexCourt)
@@ -106,13 +115,22 @@ const TopProfile = props => {
                             مجموعه:
                         </div>
                     </div>
-                    <div className="col-sm-11 p-0  ">
+                    <div className="col-sm-11 p-0  " dir='rtl'>
+
                         {
-                            complexList.length>0?complexList.map(item =>
-                                <Link to={`/salon/${item.id}`} className={["salon_btn ",item.isSelected?' salon_btn_selected':' salon_btn_unselected'].join(' ')}   key={item.id}>
-                                   {item.name}
-                                </Link>
-                             ):""
+                            complexList.length>0?
+                                <Swiper {...params2}  >
+
+                                    {
+                                        complexList.map(item =>
+                                            <Link to={`/salon/${item.id}`} className={["salon_btn ",item.isSelected?' salon_btn_selected':' salon_btn_unselected'].join(' ')}   key={item.id}>
+                                                {item.name}
+                                            </Link>
+                                        )}
+                                </Swiper>:""
+
+
+
                         }
 
                     </div>
@@ -129,7 +147,9 @@ const TopProfile = props => {
 
 
                             {
-                                courts.length>1?      <Swiper {...params}  >
+                                courts.length>1?
+
+                                    <Swiper {...params}  >
 
                                     {
                                         courts.map(court => <span className={["salon_btn ",court.selected?' salon_btn_selected':' salon_btn_unselected'].join(' ')}
@@ -139,10 +159,11 @@ const TopProfile = props => {
                                         >
                                 {court.name}
                             </span>)
-
-
                                     }
-                                </Swiper>:  courts.length>0?
+                                </Swiper>
+
+
+                                    :  courts.length>0?
 
                                     <span className={["salon_btn ",courts[0].selected?' salon_btn_selected':' salon_btn_unselected'].join(' ')}
                                                                   style={{marginTop: '3px', cursor: 'pointer'}}

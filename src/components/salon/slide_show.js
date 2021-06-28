@@ -9,13 +9,14 @@ import {PhoneValidate} from "../profile/modal";
 import {UseModals} from "../../Hooks/UseModals/UseModals";
 // import {hours} from "jalali-react-datepicker/dist/utils/timePicker";
 
-const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) => {
+const SlideShow = ({court_id,updateReservedList,LoadingOutSide,courtName, LoadingFunc}) => {
     const {User}=UseProfile();
     const { Modal,toggleModal,openModal}=UseModals();
     const DaysArray=[ 'شنبه','یکشنبه','دوشنبه','سه شنبه','چهار شنبه','پنج شنبه','جمعه'  ]
     let [slideIndex, setSlideIndex] = useState(1);
     let [isLoading, setisLoading] = useState(true);
     let [reservedata, setReservedata] = useState( []);
+
 
 
     let [sansList, setSans] = useState([]);
@@ -188,7 +189,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
                 .catch(error => error);
         }
 
-    }, [court_id, showSlides, slideIndex]);
+    }, [court_id, showSlides, slideIndex, LoadingOutSide]);
 
     useEffect(() => {
         setisLoading(true)
@@ -211,7 +212,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
 // console.log('***************sans**********')
 // console.log(sans)
     return (
-        <div className="slideshow-container slideshow-container-mb" style={{borderRadius: '20px 20px 0 0' }}>
+        <div className="slideshow-container " style={{borderRadius: '20px 20px 0 0' }}>
 
             {
                 sansList.length > 0 && sansList.map((item, key) => {
@@ -233,7 +234,7 @@ const SlideShow = ({court_id,updateReservedList,charts,courtName, LoadingFunc}) 
 
 
                                     <IsLoader2 isLoader={isLoading}>
-                                        <div className="row" style={{minHeight: '180px',height:"25vh",overflowY:"scroll"}}>
+                                        <div className="row slideshow-container-mb" style={{minHeight: '205px',height:"35vh",overflowY:"scroll"}}>
 
                                             {
                                                 DaysArray.map((day,index)=>

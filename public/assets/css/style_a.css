@@ -777,6 +777,7 @@ img {
 
 .salon_img {
     border-radius: 10px;
+    width: 14vw;
 }
 
 .salon-r {
@@ -1166,7 +1167,8 @@ q {
     }
 
     .slideshow-container-mb{
-        margin-bottom: 144px !important;
+        /*margin-bottom: 144px !important;*/
+        margin-bottom: 170px !important;
     }
 
     .top_header {
