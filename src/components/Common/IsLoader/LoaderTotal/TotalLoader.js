@@ -17,7 +17,7 @@ const TotalLoader = (props) => {
     }, [props.isLoading]);
 
     return (
-        <div className='w-100 position-relative'>
+        <div className={['w-100 position-relative' , props.DivClass].join(" ")}>
             {
                 props.children
             }

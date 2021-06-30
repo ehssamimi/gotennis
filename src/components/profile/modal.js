@@ -791,7 +791,7 @@ export const PreFactor = (props) => {
                         <div className="modal-body top_profile">
 
                             <div className='w-100 factor-header'>
-                                <p className='col-sm-12 text-right text-white pt-2 '>  پیش فاکتور رزرو شما</p>
+                                <p className='w-100 text-right text-white pt-2 '>  پیش فاکتور رزرو شما</p>
                                 <div className='d-flex justify-content-center'>
                                     <div  className='col-sm-11' style={{marginTop:'4%',marginBottom:'4%'}}>
 

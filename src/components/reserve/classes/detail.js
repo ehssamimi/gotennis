@@ -77,7 +77,7 @@ const Detail = () => {
 
     return (
         <MainDiv  backUrl={'/reserve'} header={ 'کلاس'}>
-            <TotalLoader isLoading={isLoading}>
+            <TotalLoader isLoading={isLoading} DivClass='block-mobile-flex-deskTop'>
                 {
                     (data && data.id) ?
                         <div className="container" style={{margin: 0, padding: 0, backgroundColor: '#fff'}}>

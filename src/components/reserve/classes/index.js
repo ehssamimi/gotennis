@@ -15,7 +15,6 @@ const Index = () => {
         getClasses().then(response => ListResponseHandler(response, setData))
             .catch(error => error);
     }, []);
-    console.log(data.data)
 
     return (
         <div id="registration" className="tabcontent">

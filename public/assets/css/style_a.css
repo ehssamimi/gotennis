@@ -1154,11 +1154,19 @@ q {
     }
 }
 
-
+.block-mobile-flex-deskTop{
+    display: flex;
+    justify-content: center;
+}
 
 
 
 @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+    .block-mobile-flex-deskTop{
+        display: block;
+        justify-content: start;
+    }
+
     .ProfileStatisticList {
         height: 66px;
         background: white;
