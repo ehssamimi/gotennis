@@ -20,7 +20,6 @@ const Index = () => {
         getComplexes().then(response => ListResponseHandler(response, setData))
             .catch(error => error);
     }, []);
-    console.log(data)
 
     return (
         <MainDiv>

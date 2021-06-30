@@ -654,7 +654,7 @@ img {
     padding: 6px 16px;
     transition: 0.3s;
     font-size: 17px;
-    color: white;
+    color: #a0a0a0;
     width: 50%;
 }
 
@@ -689,6 +689,7 @@ img {
 /* Create an active/current tablink class */
 .tab button.active {
     border-bottom: 3px solid white;
+    color: white;!important;
 }
 
 /* Style the tab content */

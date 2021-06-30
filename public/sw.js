@@ -1,4 +1,4 @@
-const CACHE_VERSION = 0.4;
+const CACHE_VERSION = 0.41;
 
 let CURRENT_CACHE = {
     static : 'static-cache-v' + CACHE_VERSION,
