@@ -67,6 +67,7 @@ const Detail = () => {
         console.log(code , data  , message)
         document.getElementById('PreFactor').style.display = 'none';
         if (code ==='200'){
+            setpreOrderList(data)
             document.getElementById('payModal').style.display = 'block'
 
         }else {
