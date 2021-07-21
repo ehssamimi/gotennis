@@ -149,16 +149,28 @@ export const Modal = ({user,changeUser}) => {
             // unread_messages: 0
 
             //
-            updateUser(formData).then(   response => {
+            updateUser(formData).then (   async (response) => {
                 console.log(response)
                 let {data: {code , data , message }}=response
                 if (code===200){
                     EditUser(PhoneNumber,'phoneNumber')
+
+                        console.log(data)
+                    if (  data.profile_pic !== null) {
+                        await EditUser(data.profile_pic, 'img')
+                    }
+                    if ( data.name !== null) {
+
+                        await EditUser( data.user.name, 'name')
+                    }
                     gotennisNotif(4,"اطلاعات کاربر به روز رسانی شد ")
 
                    if (history.location.pathname==='/profile') {
                        window.location.reload()
                    }
+
+
+
 
                 }else  if (code===403){
 
