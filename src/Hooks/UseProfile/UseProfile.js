@@ -28,19 +28,28 @@ export function UseProfile() {
     }, []);
 
 
-    const EditUser= async (value,type)=>{
-let oldUser=JSON.parse(localStorage.getItem("GoTennisInfo"));
-        let NewUser={...oldUser,[type]:value}
+    const EditUser = async (value, type) => {
+        let oldUser = JSON.parse(localStorage.getItem("GoTennisInfo"));
+        let NewUser = {...oldUser, [type]: value}
         setUser(NewUser)
-       await localStorage.setItem("GoTennisInfo",JSON.stringify(NewUser))
+        await localStorage.setItem("GoTennisInfo", JSON.stringify(NewUser))
 
     }
- const initialUser=( )=>{
-     localStorage.setItem("GoTennisInfo",JSON.stringify({"wallet":"",'isLogin':"","token":"",'phoneValidate':false,'complexName':"",'name':"کاربر",'img':"/assets/img/avatar-380-456332.png" ,'phoneNumber':""}))
+    const initialUser = () => {
+        localStorage.setItem("GoTennisInfo", JSON.stringify({
+            "wallet": "",
+            'isLogin': "",
+            "token": "",
+            'phoneValidate': false,
+            'complexName': "",
+            'name': "کاربر",
+            'img': "/assets/img/avatar-380-456332.png",
+            'phoneNumber': ""
+        }))
     }
 
     return {
-        User,EditUser,initialUser
+        User, EditUser, initialUser
     }
 }
 

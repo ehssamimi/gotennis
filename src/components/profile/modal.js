@@ -334,7 +334,7 @@ export const Modal = ({user,changeUser}) => {
                     </div>
                 </div>
             </div>
-            <ValidateCode isOpen={Modal.isOpen} toggle={()=>{toggleModal("profile")}} PhoneNumber={PhoneNumber}/>
+            <ValidateCode isOpen={Modal.isOpen} toggle={()=>{toggleModal("profile")}} PhoneNumber={PhoneNumber}  />
          </div>
     );
 }
@@ -387,30 +387,31 @@ export const CenterModal = (props) => {
         }
 
     }
-    const submitcode=async ()=>{
+    const submitcode = async () => {
 
-        await verifyMobile(code,phone).then  ( async response => {
-            console.log(response)
-            console.log(response.data.data.access_token)
-            let userName="کاربر"
-               await EditUser('Bearer'+' '+response.data.data.access_token,'token')
-            if (  response.data.data.profile_pic!==null){
-                await EditUser( response.data.data.profile_pic,'img')
-            }  if (  response.data.data.name!==null){
-                    userName=response.data.data.name
-                await EditUser( response.data.data.name,'name')
-            }
+        await verifyMobile(code, phone).then(async response => {
+                console.log(response)
+                console.log(response.data.data.access_token)
+                let userName = "کاربر"
+                await EditUser('Bearer' + ' ' + response.data.data.access_token, 'token')
+                if (response.data.data.profile_pic !== null) {
+                    await EditUser(response.data.data.profile_pic, 'img')
+                }
+                if (response.data.data.name !== null) {
+                    userName = response.data.data.name
+                    await EditUser(response.data.data.name, 'name')
+                }
 
 
                 resetStats();
-                gotennisNotif(4,'خوش آمدید '+userName)
+                gotennisNotif(4, 'خوش آمدید ' + userName)
 
-window.location.reload()
+                window.location.reload()
 
-                    // ChangePage( 2,'fadeExit')
-                     // document.getElementById('exampleModalCenter').style.display = 'none'
-                }
-            ).catch(error => showError(error));
+                // ChangePage( 2,'fadeExit')
+                // document.getElementById('exampleModalCenter').style.display = 'none'
+            }
+        ).catch(error => showError(error));
 
 
     }
@@ -573,7 +574,7 @@ export const ValidateCode = (props) => {
 
                     props.toggle()
                     gotennisNotif(4,'خوش آمدید '+userName)
-                    props.finishRequest()
+                    // props.finishRequest()
                 }else {
                     gotennisNotif(4,response.data.message )
                     props.toggle()
