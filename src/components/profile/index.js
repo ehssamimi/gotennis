@@ -55,9 +55,13 @@ const Index = () => {
                 EditUser(true,'isLogin')
 
 
+                // EditUser(true,'isLogin')
+                if (response.name!==null){
+                    EditUser(response.name,'name')
+                }
+
                 if (response.birthday!==null){
-                    console.log('response.balance')
-                    console.log(response.balance)
+
                     // let birthday="3-6-1367"
                     // console.log(response.birthday.split("-"))
                     let userirthday = {
