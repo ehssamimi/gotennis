@@ -30,12 +30,12 @@ const Index = () => {
         setisLoading(true)
          setCourtId(id);
 
-        console.log('**************complexImg**********')
-        console.log(complexImg)
+        // console.log('**************complexImg**********')
+        // console.log(complexImg)
         setCourtName({...courtName,name,complexImg})
         getSansApi(id).then(response => {
 
-            console.log(response.data.data)
+            // console.log(response.data.data)
             setSans(response.data.data);
             setisLoading(false)
         }).catch(error => error);
@@ -58,8 +58,8 @@ const Index = () => {
         setisLoading(loader)
     }
 
-console.log('*********LoadingOutSide***')
-console.log(LoadingOutSide)
+// console.log('*********LoadingOutSide***')
+// console.log(LoadingOutSide)
 
     return (
 

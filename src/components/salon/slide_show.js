@@ -99,18 +99,19 @@ const SlideShow = ({court_id,updateReservedList,LoadingOutSide,courtName, Loadin
         }else {
             Profile=User
         }
-
-        if (Profile.phoneValidate && Profile.name!== 'کاربر'){
+    // && Profile.name!== 'کاربر'
+        if (Profile.phoneValidate ){
             let type=["expired","occupied","reserved"]
 
 
             if ( !type.includes(sans.status)){
-                if(sans.gender === 1){
-                    gotennisNotif(3)
-                }else  if(sans.gender === 0){
+                // if(sans.gender === 1){
+                //     gotennisNotif(3)
+                // }else  if(sans.gender === 0){
                     LoadingFunc(true)
                     let {data: {code , data , message }}= await checkReserved(sans.sans_id )
                     LoadingFunc(false)
+
                     if (code===200 && data){
 
                         let indexItem= getIndexIfObjWithAttr(reservedata,'sans_id',sans.sans_id)
@@ -135,6 +136,14 @@ const SlideShow = ({court_id,updateReservedList,LoadingOutSide,courtName, Loadin
 
                     }else {
 
+                        console.log(code)
+
+                        console.log(message)
+
+                        if(Number(code)===400){
+                            document.getElementById('myModal').style.display = 'block';
+                        }
+
                         gotennisNotif(4,message)
                     }
 
@@ -147,7 +156,7 @@ const SlideShow = ({court_id,updateReservedList,LoadingOutSide,courtName, Loadin
                 }
 
 
-            }
+            // }
         }else {
             console.log(User.phoneValidate)
             console.log(Profile.phoneValidate)
@@ -200,7 +209,7 @@ const SlideShow = ({court_id,updateReservedList,LoadingOutSide,courtName, Loadin
 
             if (Profile.phoneValidate){
                 console.log("open User")
-                document.getElementById('myModal').style.display = 'block';
+                // document.getElementById('myModal').style.display = 'block';
             }else {
                 toggleModal("profile")
             }

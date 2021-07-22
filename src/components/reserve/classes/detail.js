@@ -71,6 +71,9 @@ const Detail = () => {
             document.getElementById('payModal').style.display = 'block'
 
         }else {
+            if (Number(code)===400){
+                document.getElementById('myModal').style.display = 'block'
+            }
             gotennisNotif(4,message)
         }
     }
