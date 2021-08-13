@@ -46,7 +46,7 @@ export const gotennisNotif = (type = 1 ,text) => {
 
 
 const MessageOptions = {
-    position: "bottom-right",
+    position: "top-right",
     autoClose: 6000,
     hideProgressBar: true,
     closeOnClick: true,

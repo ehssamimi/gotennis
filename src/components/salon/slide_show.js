@@ -68,6 +68,7 @@ const SlideShow = ({court_id,updateReservedList,LoadingOutSide,courtName, Loadin
     }
 
     const timeHandler = date => {
+        // console.log()
 
         let start_time = date.start_time.split(":");
         let finish_time = date.finish_time.split(":");
@@ -78,8 +79,27 @@ const SlideShow = ({court_id,updateReservedList,LoadingOutSide,courtName, Loadin
         if (finish_time[0].charAt(0) == "0")
             finish_time[0] = finish_time[0].replace("0", "");
 
+          let result = {start:"",end:""}
+        if (start_time[1]!==0 ){
+            if (start_time[1].charAt(0) == "0")
+                start_time[1] = start_time[1].replace("0", "");
+            result['start']=start_time[1]!=="0"?   start_time[0] + ':' + start_time[1]: start_time[0]
+        }else {
+            result['start']=   start_time[0]
+        }
 
-        return start_time[0] + '-' + finish_time[0];
+        if (finish_time[1]!==0 ){
+            if (finish_time[1].charAt(0) == "0")
+                finish_time[1] = finish_time[1].replace("0", "");
+            result['end']=finish_time[1]!=="0"?   finish_time[0] + ':' + finish_time[1]: finish_time[0]
+         }else {
+            result['end']=   finish_time[0]
+        }
+
+
+
+        // return start_time[0] + '-' + finish_time[0];
+        return result['start'] + '-' + result['end'];
 
     }
 
@@ -218,8 +238,8 @@ const SlideShow = ({court_id,updateReservedList,LoadingOutSide,courtName, Loadin
 
 
 
-// console.log('***************sans**********')
-// console.log(sans)
+console.log('***************sansList**********')
+console.log(sansList)
     return (
         <div className="slideshow-container " style={{borderRadius: '20px 20px 0 0' }}>
 

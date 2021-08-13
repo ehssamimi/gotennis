@@ -34,8 +34,11 @@ const Index = () => {
         // console.log(complexImg)
         setCourtName({...courtName,name,complexImg})
         getSansApi(id).then(response => {
+            console.log(sans)
+            console.log("************sans***********")
+            console.log(response)
 
-            // console.log(response.data.data)
+            // console.log(.data.data)
             setSans(response.data.data);
             setisLoading(false)
         }).catch(error => error);
