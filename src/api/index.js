@@ -11,12 +11,12 @@ const getUser = () => Axios2('/user');
 const getComplexes = () => Axios2('/complexes');
 const getSans = (court_id, sport_id = 1) => Axios.post('/sans', {court_id, sport_id});
 const checkReserved = (sans_id) => Axios2.post('/reserve/check', {sans_id}).then(response=>  response).catch(error => ErrorResp(error) );
-const preOrder = (sansList) => Axios2.post('/pre-order', {"sans_ids":sansList}).then(response=>  response).catch(error => ErrorResp(error) );
+const preOrder = (sansList) => Axios2.post('/pre-order', {"sans_ids":sansList,web_app : 1}).then(response=>  response).catch(error => ErrorResp(error) );
 const paymentRequest = (payment_type,credit_id,transaction_id) => Axios2.post('/payment/validate', { payment_type, credit_id, transaction_id}).then(response=>  response).catch(error => ErrorResp(error) );
 
 const getClasses = () => Axios2('/class');
 const getClass = id => Axios2(`/class/${id}`);
-const preOrderClass = ( class_id) => Axios2.post(`/class/${class_id}/pre-order`, {class_id}).then(response=>  response).catch(error => ErrorResp(error) );
+const preOrderClass = ( class_id) => Axios2.post(`/class/${class_id}/pre-order`, {class_id,web_app : 1}).then(response=>  response).catch(error => ErrorResp(error) );
 
 const getCourts = async complex_id => Axios2(`/courts?complex_id=${complex_id}`) ;
 
