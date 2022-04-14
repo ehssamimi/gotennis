@@ -31,7 +31,7 @@ const SuccessPayment = (props) => {
         getSuccess(param.id).then(response =>setData({data:response.data.data, loading: false, notFound: true}))
             .catch(error => setData({data:{training_class:{},total:3000,cost:3000}, loading: false, notFound: false}));
     }, []);
-    console.log(Desc.data)
+    console.log(Desc)
 
 
     return (
@@ -40,7 +40,7 @@ const SuccessPayment = (props) => {
                 Desc.notFound?
                     <div className='w-100  vh-100 top_profile d-flex flex-column' >
                         <div className='w-100 factor-header'>
-                            <p className='col-sm-12 text-right text-white pt-2 '>  رزرو شما با موفقیت ثبت شد</p>
+                            <p className='col-sm-12 text-right text-white pt-2 '>  رزرو شما با موفقیت ثبت {Desc.data.status==="1"?"شد":"نشد"}</p>
                             <div className='d-flex justify-content-center'>
                                 <div  className='col-sm-11' style={{marginTop:'4%',marginBottom:'4%'}}>
                                     {
